@@ -1,4 +1,4 @@
-from offer import Offer
+from Offer import Offer
 import requests
 import json
 import sys
