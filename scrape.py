@@ -1,5 +1,5 @@
 from Offer import Offer
-import requests
+import pip._vendor.requests as requests
 import json
 import sys
 
