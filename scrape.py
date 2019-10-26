@@ -1,3 +1,4 @@
+from offer import Offer
 import requests
 import json
 import sys
@@ -26,3 +27,16 @@ with open("justJoinIt.json", "w", encoding='utf-8') as fp1:
 with open("noFluffJobs.json", "w", encoding='utf-8') as fp2:
     json.dump(noFluffOffers, fp2, ensure_ascii=False, indent=4)
 
+
+listings = []
+
+for offer in noFluffOffers['postings']:
+    listings.append(Offer(title=offer['title'],
+                          company=offer['name'],
+                          city=offer['location']['places'][0]['city'],
+                          techstack=offer.get('technology', []),
+                          experience=offer.get('seniority', []),
+                          offerurl='https://nofluffjobs.com/job/' + offer['url'],
+                          logourl=offer.get('logo', '')))
+
+#print(listings) <- Uncomment to see the output
