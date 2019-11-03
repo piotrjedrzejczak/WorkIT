@@ -20,4 +20,13 @@ class Offer:
                 self.offerurl = offerurl
 
     def __repr__(self):
-        return f'Title: {self.title}'
+        return ('Offer:\n'
+                f'Title: {self.title}\n'
+                f'Company: {self.company}\n'
+                f'City: {self.city}\n'
+                f'Salary: {self.salary}\n'
+                f'Tech Stack: {self.techstack}\n'
+                f'Experience: {self.experience}\n'
+                f'Logo URL: {self.logourl}\n'
+                f'OfferURL: {self.offerurl}\n')
+                
