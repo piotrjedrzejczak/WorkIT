@@ -15,10 +15,11 @@ def main():
         website.create_offers() # Wywołanie funkcji pobierających oferty na każdym obiekcie w liście
         database.extend(website.offers) # Pozyskiwanie gotowych ofert z obiektu
 
-    pass
-    # Zapis danych do pliku
-    # with open("database.txt", "w", encoding='utf-8') as db:
-    #     db.writelines(database)
+    # Zapis danych do pliku symulującego baze danych
+    with open("database.txt", "w", encoding='utf-8') as db:
+        for offer in database:
+            db.write(str(offer))
+            db.write('\n')
 
 if __name__ == '__main__':
     main()
