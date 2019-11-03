@@ -73,8 +73,3 @@ class BullDogJobs(Website):
             return ''
         except TypeError:
             return ''
-
-
-x = BullDogJobs()
-x.create_offers()
-pass

@@ -39,4 +39,3 @@ class NoFluffJobs(Website):
         else:
             self._raw_offers = []
             return 'No offers found.'
-
