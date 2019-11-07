@@ -1,7 +1,7 @@
 from src.websites.BullDog import BullDogJobs
 from src.websites.JustJoin import JustJoinJobs
 from src.websites.NoFluff import NoFluffJobs
-from src.metadata.Storage import Storage
+from src.storage.Metadata import Storage
 
 def main():
 
