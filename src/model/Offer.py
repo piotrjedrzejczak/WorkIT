@@ -25,8 +25,8 @@ class Offer:
                 f'Company: {self.company}\n'
                 f'City: {self.city}\n'
                 f'Salary: {self.salary}\n'
-                f'Tech Stack: {self.techstack}\n'
+                f'TechStack: {self.techstack}\n'
                 f'Experience: {self.experience}\n'
-                f'Logo URL: {self.logourl}\n'
+                f'LogoURL: {self.logourl}\n'
                 f'OfferURL: {self.offerurl}\n')
                 
