@@ -24,10 +24,8 @@ def main():
         for offer in database:
             db.write(str(offer))
             db.write('\n')
+            db.write(str(offer)[:-1])
 
-    # By storage działał należy usunąć dwie ostatnie puste linie w pliku database.txt
-    # Jako że za każdym pobraniem ofert dwie linie są dodawane, sugeruję na przetestowanie zakomentować powyższe metody.
-    # Jakiś pomysł żeby zautomatyzować to?
     Storage.Metadata()
     
 
