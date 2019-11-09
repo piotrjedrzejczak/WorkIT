@@ -23,7 +23,7 @@ class NoFluffJobs(Website):
                                 techstack=offer.get('technology', []),
                                 experience=offer.get('seniority', []),
                                 offerurl='https://nofluffjobs.com/job/' + offer['url'],
-                                logourl=offer.get('logo', '')
+                                logourl='https://nofluffjobs.com/' + offer.get('logo', '')
                                 )
                         )
 
