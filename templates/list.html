@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+   <body>
+      <table border = 1>
+         <thead>
+            <td>Title</td>
+            <td>Company</td>
+            <td>City</td>
+            <td>Salary</td>
+            <td>TechStack</td>
+            <td>Experience</td>
+            <td>LogoURL</td>
+            <td>OfferURL</td>
+         </thead>
+         
+         {% for row in rows %}
+            <tr>
+               <td>{{row[0]}}</td>
+               <td>{{row[1]}}</td>
+               <td>{{row[2]}}</td>
+               <td>{{row[3]}}</td>	
+               <td>{{row[4]}}</td>
+               <td>{{row[5]}}</td>
+               <td><img src = {{row[6]}}></td>
+               <td><a href = {{row[7]}}>OfferURL</a></td>
+            </tr>
+         {% endfor %}
+      </table>
+   </body>
+</html>
