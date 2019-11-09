@@ -5,7 +5,7 @@ from src.storage.Metadata import Storage
 
 def main():
 
-    # Symulator naszej bazy danych
+    # Kontener na oferty
     database = []
 
     # Inicjalizacja obiektów stron
