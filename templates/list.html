@@ -1,7 +1,9 @@
 <!doctype html>
 <html>
+   <head>
+      <link rel="stylesheet" href="static/css/rows.css">   </head>
    <body>
-      <table border = 1>
+      <!-- <table border = 1>
          <thead>
             <td>Title</td>
             <td>Company</td>
@@ -11,19 +13,17 @@
             <td>Experience</td>
             <td>LogoURL</td>
             <td>OfferURL</td>
-         </thead>
+         </thead> -->
          
          {% for row in rows %}
-            <tr>
-               <td>{{row[0]}}</td>
-               <td>{{row[1]}}</td>
-               <td>{{row[2]}}</td>
-               <td>{{row[3]}}</td>	
-               <td>{{row[4]}}</td>
-               <td>{{row[5]}}</td>
-               <td><img src = {{row[6]}}></td>
-               <td><a href = {{row[7]}}>OfferURL</a></td>
-            </tr>
+               <div class="title">{{row[0]}}</div>
+               <div class="company">{{row[1]}}</div>
+               <div class="city">{{row[2]}}</div>
+               <div class="salary">{{row[3]}}</div>
+               <div class="techstack">{{row[4]}}</div>
+               <div clas="experience">{{row[5]}}</div>
+               <div class="logourl"><img src = {{row[6]}}></div>
+               <div class="offerurl"><a href = {{row[7]}}>OfferURL</a></div>
          {% endfor %}
       </table>
    </body>
