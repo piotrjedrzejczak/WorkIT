@@ -1,31 +1,54 @@
-.title {
+.offer {
+    border-style: solid;
+    border-left: 6px solid rgba(13, 238, 13, 0.61);
+    border-radius: 20px;
+    height: 100px;
+    margin-top: 18px;
+    font-size: 12px;
+}
 
+.title {
+    padding-left: 150px;
+    padding-top: 5px;
 }
 
 .company{
-
+    padding-left: 150px;
 }
 
 .city{
-
+    padding-left: 150px;
 }
 
 .salary{
-
+    padding-left: 150px;
 }
 
 .techstack{
-
+    padding-left: 150px;
 }
 
 .experience{
-
+    padding-left: 150px;
 }
 
 .logourl{
-
+    margin-top: -75px;
+    padding-left: 30px;
 }
 
 .offerurl{
-    padding-bottom: 50px;
+
+    margin-top: -72px;
+    height: 50px;
+
+}
+
+a:link, a:visited{
+    /* background-color: red; check range of click*/
+    color: white;
+    padding: 18px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }

@@ -15,16 +15,21 @@
             <td>OfferURL</td>
          </thead> -->
          
+         
          {% for row in rows %}
+         <div class="offer">
                <div class="title">{{row[0]}}</div>
                <div class="company">{{row[1]}}</div>
                <div class="city">{{row[2]}}</div>
                <div class="salary">{{row[3]}}</div>
                <div class="techstack">{{row[4]}}</div>
-               <div clas="experience">{{row[5]}}</div>
-               <div class="logourl"><img src = {{row[6]}}></div>
-               <div class="offerurl"><a href = {{row[7]}}>OfferURL</a></div>
+               <div class="experience">{{row[5]}}</div>
+               
+               <div class="logourl"><img src = {{row[6]}} style="width:80px;height:55px;"></div>
+
+               <div class="offerurl"><a href = {{row[7]}} style="width:92%;height:60px;"></a></div>
+         </div>
          {% endfor %}
-      </table>
+      <!-- </table> -->
    </body>
 </html>
