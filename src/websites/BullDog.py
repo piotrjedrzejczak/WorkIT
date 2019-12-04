@@ -19,14 +19,7 @@ class BullDogJobs(Website):
         if (response := get(self.__get_offers_url, headers={'User-Agent': 'Mozilla/5.0'})).status_code == 200:
             html = BSoup(response.text, 'html.parser')
             last_page += int(self._get_html_text(html, classname='pagination', by_attr=True, attr='data-total'))
-            for listing in html.find_all(class_=compile(r'results-list-item')):
-                    offer = self._parse_offer(listing)
-                    if offer[3] == '':
-                        # If Offer URL was not found, it means that the listing is invalid. Move on to the next listing.
-                        continue
-                    else:
-                        self.offers.append(Offer(*offer))
-            for page in range(2, last_page):
+            for page in range(1, last_page):
                 response = get(f'{self.__get_offers_url}{str(page)}', headers={'User-Agent': 'Mozilla/5.0'})
                 html = BSoup(response.text, 'html.parser')
                 for listing in html.find_all(class_=compile(r'results-list-item')):
