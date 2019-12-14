@@ -1,35 +1,47 @@
 <!doctype html>
 <html>
    <head>
+         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
       <link rel="stylesheet" href="static/css/rows.css">   </head>
    <body>
-      <!-- <table border = 1>
-         <thead>
-            <td>Title</td>
-            <td>Company</td>
-            <td>City</td>
-            <td>Salary</td>
-            <td>TechStack</td>
-            <td>Experience</td>
-            <td>LogoURL</td>
-            <td>OfferURL</td>
-         </thead> -->
-         
-         
-         {% for row in rows %}
-         <div class="offer">
-               <div class="title">{{row[0]}}</div>
-               <div class="company">{{row[1]}}</div>
-               <div class="city">{{row[2]}}</div>
-               <div class="salary">{{row[3]}}</div>
-               <div class="techstack">{{row[4]}}</div>
-               <div class="experience">{{row[5]}}</div>
-               
-               <div class="logourl"><img src = {{row[6]}} style="width:80px;height:55px;"></div>
-
-               <div class="offerurl"><a href = {{row[7]}} style="width:92%;height:60px;"></a></div>
+      <div class="container">
+         <div class="row">
+            <div class="col-12">
+               {% for row in rows %}
+                  <div class="offer">
+                     <a href="{{row[7]}}" target="_blank"></a>
+                     <div class="offer__image" style="background:url({{row[6]}})center/contain no-repeat">
+                     </div>
+                     <div class="offer__info-container">
+                        <div>
+                           <h2>{{row[0]}}</h2>
+                        </div>
+                        <div class="offer__box-container">
+                           <div>
+                              <img src="/static/img/company.svg" alt="xd">
+                              <h3>{{row[1]}}</h3>
+                           </div>
+                           <div>
+                              <img src="/static/img/city.svg" alt="xd">
+                              <h3>{{row[2]}}</h3>
+                           </div>
+                           <div>
+                              <img src="/static/img/technology.svg" alt="xd">
+                              <h3>{{row[4]}}</h3>
+                           </div>
+                           <div>
+                              <img src="/static/img/level.svg" alt="xd">
+                              <h3>{{row[5]}}</h3>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="offer__salary">
+                        <h3>{{row[3]}}&nbsp;PLN</h3>
+                     </div>
+                  </div>
+               {% endfor %}
+            </div>
          </div>
-         {% endfor %}
-      <!-- </table> -->
+      </div>
    </body>
 </html>

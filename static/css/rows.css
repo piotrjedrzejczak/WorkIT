@@ -1,54 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding: 70px 0;
+    color: #575757;
+}
+
 .offer {
-    border-style: solid;
-    border-left: 6px solid rgba(13, 238, 13, 0.61);
-    border-radius: 20px;
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    border-top: 2px solid #efefef;
+    border-right: 5px solid #1a4f6e;;
+    border-bottom: 2px solid #efefef;
+    border-left: 2px solid #efefef;
+    -webkit-transition: all 100ms ease-in-out;
+    transition: all 100ms ease-in-out;
+    background: #fafafa;
+    border-radius: 10px;
+}
+
+.offer:hover {
+    -webkit-box-shadow: 1px 11px 22px -13px rgba(0,0,0,0.28);
+    box-shadow: 1px 11px 22px -13px rgba(0,0,0,0.28);
+    top: -1px;
+    background: #f8f8f8;
+}
+
+.offer a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.offer__image {
+    width: 150px;
     height: 100px;
-    margin-top: 18px;
-    font-size: 12px;
 }
 
-.title {
-    padding-left: 150px;
-    padding-top: 5px;
+.offer__info-container {
+    width: 100%;
+    max-width: 750px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 0 15px;
 }
 
-.company{
-    padding-left: 150px;
-}
-
-.city{
-    padding-left: 150px;
-}
-
-.salary{
-    padding-left: 150px;
-}
-
-.techstack{
-    padding-left: 150px;
-}
-
-.experience{
-    padding-left: 150px;
-}
-
-.logourl{
-    margin-top: -75px;
-    padding-left: 30px;
-}
-
-.offerurl{
-
-    margin-top: -72px;
-    height: 50px;
-
-}
-
-a:link, a:visited{
-    /* background-color: red; check range of click*/
-    color: white;
-    padding: 18px 30px;
+.offer__info-container h2 {
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    font-size: 24px;
+    margin: 10px 0 20px;
+    color:#1a4f6e;
+    font-weight: 700;
+}
+
+.offer__box-container {
+    max-width: 700px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.offer__box-container div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 15px;
+}
+
+.offer__box-container div h3 {
+    font-size: 15px;
+    color:#1a4f6e;
+    font-weight: 400;
+}
+
+.offer__box-container div img {
+    width: 18px;
+    height: 18px;
+    margin: 0 7px 0 0;
+}
+
+.offer__salary {
+    min-width: 190px;
+    max-width: 220px;
+}
+
+.offer__salary h3{
+    font-size: 20px;
+    color:#1a4f6e;
+    font-weight: 700;
+}
+
+
+/*RWD*/
+
+@media(max-width: 767px) {
+    .offer {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .offer__box-container {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        max-width: auto;
+    }
+
+    .offer__box-container div {
+        margin: 5px 0;
+    }
+
+    .offer__info-container h2 {
+        margin: 20px 0;
+    }
+
 }
