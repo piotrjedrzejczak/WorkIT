@@ -14,10 +14,12 @@ def main():
 
     # Przejście przez wszystkie strony
     for website in websites:
-        website.create_offers() # Wywołanie funkcji pobierających oferty na każdym obiekcie w liście
-        database.extend(website.offers)# Pozyskiwanie gotowych ofert z obiektu
+        # Wywołanie funkcji pobierających oferty na każdym obiekcie w liście
+        website.create_offers()
+        # Pozyskiwanie gotowych ofert z obiektu
+        database.extend(website.offers)
 
-    #Tworzenie bazy
+    # Tworzenie bazy
     db = Storage()
     db.Metadata(database)
 
