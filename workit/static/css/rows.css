@@ -8,6 +8,11 @@ body {
 
 .categories {
     display: grid;
+    gap: 10px;
+}
+
+.btn btn-outline-info {
+    padding: 20px;
 }
 
 .offer {
