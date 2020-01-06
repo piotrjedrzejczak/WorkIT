@@ -1,4 +1,4 @@
-from src.model.Const import CATEGORIES, CURRENCIES
+from workit.const import CATEGORIES, CURRENCIES
 from re import sub
 
 
@@ -9,7 +9,7 @@ class Offer:
         title,
         company,
         city,
-        offerurl,
+        url,
         salary,
         techstack,
         experience
@@ -18,7 +18,7 @@ class Offer:
         self.title = title
         self.company = company
         self.city = city
-        self.offerurl = offerurl
+        self.url = url
         self.salary = salary
         self.techstack = techstack
         self.experience = experience
@@ -26,6 +26,16 @@ class Offer:
 
     def __repr__(self):
         return str(self.__dict__)
+
+    def __iter__(self):
+        yield 'title', self.title
+        yield 'company', self.company
+        yield 'city', self.city
+        yield 'url', self.url
+        yield 'salary', self.salary
+        yield 'techstack', self.techstack
+        yield 'experience', self.experience
+        yield 'category', self.category
 
     @property
     def experience(self):
@@ -56,13 +66,13 @@ class Offer:
             self._techstack = [value]
 
     @property
-    def offerurl(self):
-        return self._offerurl
+    def url(self):
+        return self._url
 
-    @offerurl.setter
-    def offerurl(self, url):
+    @url.setter
+    def url(self, url):
         if url is not None and url != '':
-            self._offerurl = url
+            self._url = url
         else:
             raise ValueError(f'Offer URL {url} cannot be empty or None.')
 

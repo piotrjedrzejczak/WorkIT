@@ -1,13 +1,15 @@
-from requests import get
-from src.model.Offer import Offer
-from src.model.Website import Website
-from bs4 import BeautifulSoup as BSoup
-from re import compile
 from logging import Formatter, FileHandler, getLogger, DEBUG
+from bs4 import BeautifulSoup as BSoup
+from workit.model.Website import Website
+from workit.model.Offer import Offer
+from datetime import datetime
+from requests import get
+from re import compile
+
 
 logger = getLogger('workit.bulldog')
 logger.setLevel(DEBUG)
-fhandler = FileHandler('src/logs/bulldog.log')
+fhandler = FileHandler('workit/logs/bulldog.log')
 fhandler.setLevel(DEBUG)
 formatter = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fhandler.setFormatter(formatter)
@@ -17,13 +19,14 @@ logger.addHandler(fhandler)
 class BullDogJobs(Website):
 
     __get_offers_url = 'https://bulldogjob.pl/companies/jobs?mode=plain&page='
+    __fetch_time = datetime(1, 1, 1)
 
     def __init__(self):
         self.offers = []
 
     def create_offers(self):
         '''This method creates Offers from BullDogJobs'''
-
+        self.__fetch_time = datetime.now()
         last_page = 1
         response = get(
             self.__get_offers_url,

@@ -55,3 +55,9 @@ CATEGORIES = {
 }
 
 CURRENCIES = {'pln', 'eur', 'usd'}
+
+from workit.websites.BullDog import BullDogJobs
+from workit.websites.JustJoin import JustJoinJobs
+from workit.websites.NoFluff import NoFluffJobs
+
+WEBSITES = [JustJoinJobs(), NoFluffJobs(), BullDogJobs()]
