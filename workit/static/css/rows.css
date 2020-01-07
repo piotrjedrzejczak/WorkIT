@@ -5,14 +5,25 @@ body {
     padding: 70px 0;
     color: #575757;
 }
-
-.categories {
-    display: grid;
-    gap: 10px;
+.tile-box {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.tile {
+    display: inline-block;
+    width: 12%;
+    margin: 5px;
 }
 
-.btn btn-outline-info {
-    padding: 20px;
+.tile-input {
+    display: inline-block;
+    width: 72%;
+    margin: 5px;
+}
+.tile-search {
+    display: inline-block;
+    margin: 10px;
 }
 
 .offer {

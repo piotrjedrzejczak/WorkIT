@@ -5,14 +5,14 @@
          <div class="col-12">
             <form method="POST" action="">
                {{ form.hidden_tag() }}
-               <fieldset>
-                  <div>{{ form.keyword(class="form-control form-control-lg") }}</div>
-               </fieldset>
-               <div>{{ form.submit(class="btn btn-outline-info") }}</div>
+               <div class="tile-box">
+                  <div class="tile-input">{{ form.keyword(class="form-control form-control-lg") }}</div>
+                  <div class="tile-search">{{ form.submit(class="btn btn-outline-info") }}</div>
+               </div>
             </form>
-            <div class="categories">
+            <div class="tile-box">
                {% for category in categories %}
-               <button class="btn btn-outline-info">{{ category }}</button>
+               <button class="btn btn-outline-info tile">{{ category }}</button>
                {% endfor %}
             </div>
             {% for offer in offers %}
