@@ -54,10 +54,22 @@ CATEGORIES = {
     'Automotive': {'autosar', 'automotive'}
 }
 
+POLISH_CHARS = {
+    'ę': 'e',
+    'ó': 'o',
+    'ą': 'a',
+    'ś': 's',
+    'ł': 'l',
+    'ż': 'z',
+    'ź': 'z',
+    'ć': 'c',
+    'ń': 'n'
+}
+
 CURRENCIES = {'pln', 'eur', 'usd'}
 
-from workit.websites.BullDog import BullDogJobs
-from workit.websites.JustJoin import JustJoinJobs
-from workit.websites.NoFluff import NoFluffJobs
+from workit.websites.BullDog import BullDogJobs  # noqa E402
+from workit.websites.JustJoin import JustJoinJobs  # noqa E402
+from workit.websites.NoFluff import NoFluffJobs  # noqa E402
 
 WEBSITES = [JustJoinJobs(), NoFluffJobs(), BullDogJobs()]
