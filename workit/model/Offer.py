@@ -1,4 +1,4 @@
-from workit.const import CATEGORIES, CURRENCIES
+from workit.const import CATEGORIES, CURRENCIES, POLISH_CHARS
 from re import sub
 
 
@@ -38,6 +38,29 @@ class Offer:
         yield 'category', self.category
 
     @property
+    def city(self):
+        return self._city
+
+    @city.setter
+    def city(self, name):
+        if type(name) is str:
+            cleaned_city_name = name.split(',')[0] \
+                                    .replace('-', ' ') \
+                                    .lower() \
+                                    .strip()
+            for char in POLISH_CHARS.keys():
+                if char in cleaned_city_name:
+                    cleaned_city_name = cleaned_city_name.replace(
+                        char, POLISH_CHARS[char]
+                    )
+            self._city = cleaned_city_name.title()
+        else:
+            raise ValueError(
+                'City field has to be of type str. ' +
+                f'You passed {type(name)}'
+            )
+
+    @property
     def experience(self):
         return self._experience
 
@@ -45,7 +68,7 @@ class Offer:
     def experience(self, value):
         self._experience = []
         if type(value) is list:
-            self._experience = value
+            self._experience = [exp.title() for exp in value]
         if type(value) is str:
             if value.find(',') == -1:
                 self._experience = value.split(',')
@@ -59,11 +82,11 @@ class Offer:
     def techstack(self, value):
         self._techstack = []
         if type(value) is list:
-            self._techstack = value
+            self._techstack = [tech.title() for tech in value]
         if type(value) is str and value != '':
             if value.find(',') == -1:
                 self._techstack = value.split(',')
-            self._techstack = [value]
+            self._techstack = [value.title()]
 
     @property
     def url(self):
