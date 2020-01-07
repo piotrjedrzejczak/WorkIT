@@ -9,7 +9,9 @@ def home():
     form = SearchForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            offers = collection.find({})
+            offers = collection.find(
+                {"$text": {"$search": form.keyword.data}}
+            )
         else:
             offers = collection.find({})
         return render_template(
@@ -28,6 +30,17 @@ def home():
         return render_template(
             "home.html",
             offers=collection.find({}),
+            categories=CATEGORIES,
+            form=form
+        )
+
+
+@app.route('/category/<cat>')
+def category(cat):
+    form = SearchForm()
+    return render_template(
+            "home.html",
+            offers=collection.find({"category": cat}),
             categories=CATEGORIES,
             form=form
         )
