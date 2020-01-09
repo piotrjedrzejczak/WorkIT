@@ -13,11 +13,11 @@ class SearchForm(FlaskForm):
         ('Poznan', 'Poznań'),
         ('Lodz', 'Łódź'),
         ('Gdansk', 'Gdańsk')
-    ])
+    ], default='')
     categories = RadioField('Category', choices=[('', 'All')] + [
             (label, value)
             for label, value in zip(
                 CATEGORIES.keys(), CATEGORIES.keys()
             )
-        ])
+        ], default='')
     submit = SubmitField('Search')

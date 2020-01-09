@@ -8,12 +8,14 @@ from workit.const import CATEGORIES, WEBSITES
 def home():
     form = SearchForm()
     if request.method == 'POST':
-        if form.validate_on_submit():
-            offers = collection.find(
-                {"$text": {"$search": form.keyword.data}}
-            )
-        else:
-            offers = collection.find({})
+        query = {}
+        if form.keyword.data:
+            query.update({"$text": {"$search": form.keyword.data}})
+        if form.categories.data:
+            query.update({"category": form.categories.data})
+        if form.cities.data:
+            query.update({"city": form.cities.data})
+        offers = collection.find(query)
         return render_template(
                 "home.html",
                 offers=offers,
@@ -28,7 +30,7 @@ def home():
                 )
         return render_template(
             "home.html",
-            offers=collection.find({}),
+            offers=collection.aggregate([{"$sample": {"size": 20}}]),
             form=form
         )
 

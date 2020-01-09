@@ -6,8 +6,7 @@
             <form method="POST" action="">
                {{ form.hidden_tag() }}
                <div class="tile-box">
-                  <div class="tile-input">{{ form.keyword(class="form-control form-control-lg") }}</div>
-                  <div>
+                  <div class="tile-box">
                      {% for city in form.cities %}
                         <div class="btn btn-outline-success tile">
                            {{ city.label }}
@@ -15,13 +14,15 @@
                         </div>
                      {% endfor %}
                   </div>
-                  <div>
+                  <div class="tile-box">
                      {% for category in form.categories %}
-                     <div class="btn btn btn-outline-secondary tile">
-                        {{ category.label }}{{ category }}
+                     <div class="btn btn-outline-secondary tile">
+                        {{ category.label }}
+                        {{ category }}
                      </div>
                      {% endfor %}
                   </div>
+                  <div class="tile-input">{{ form.keyword(class="form-control form-control-lg") }}</div>
                   <div class="tile">{{ form.submit(class="btn btn-outline-primary") }}</div>
                </div>
             </form>
