@@ -12,18 +12,14 @@ body {
 }
 .tile {
     display: inline-block;
-    width: 12%;
+    width: 20%;
     margin: 5px;
 }
 
 .tile-input {
     display: inline-block;
-    width: 72%;
+    width: 100%;
     margin: 5px;
-}
-.tile-search {
-    display: inline-block;
-    margin: 10px;
 }
 
 .offer {

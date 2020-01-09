@@ -17,7 +17,6 @@ def home():
         return render_template(
                 "home.html",
                 offers=offers,
-                categories=CATEGORIES,
                 form=form
             )
     else:
@@ -30,7 +29,6 @@ def home():
         return render_template(
             "home.html",
             offers=collection.find({}),
-            categories=CATEGORIES,
             form=form
         )
 

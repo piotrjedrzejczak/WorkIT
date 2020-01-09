@@ -7,14 +7,24 @@
                {{ form.hidden_tag() }}
                <div class="tile-box">
                   <div class="tile-input">{{ form.keyword(class="form-control form-control-lg") }}</div>
-                  <div class="tile-search">{{ form.submit(class="btn btn-outline-info") }}</div>
+                  <div>
+                     {% for city in form.cities %}
+                        <div class="btn btn-outline-success tile">
+                           {{ city.label }}
+                           {{ city }}
+                        </div>
+                     {% endfor %}
+                  </div>
+                  <div>
+                     {% for category in form.categories %}
+                     <div class="btn btn btn-outline-secondary tile">
+                        {{ category.label }}{{ category }}
+                     </div>
+                     {% endfor %}
+                  </div>
+                  <div class="tile">{{ form.submit(class="btn btn-outline-primary") }}</div>
                </div>
             </form>
-            <div class="tile-box">
-               {% for category in categories %}
-               <button class="btn btn-outline-info tile">{{ category }}</button>
-               {% endfor %}
-            </div>
             {% for offer in offers %}
                <div class="offer">
                   <a href="{{ offer.url }}" target="_blank"></a>
