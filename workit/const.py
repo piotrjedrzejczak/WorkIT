@@ -71,5 +71,6 @@ CURRENCIES = {'pln', 'eur', 'usd'}
 from workit.websites.BullDog import BullDogJobs  # noqa E402
 from workit.websites.JustJoin import JustJoinJobs  # noqa E402
 from workit.websites.NoFluff import NoFluffJobs  # noqa E402
+from workit.websites.JobsForGeek import JobsForGeek # noqa E402
 
-WEBSITES = [JustJoinJobs(), NoFluffJobs(), BullDogJobs()]
+WEBSITES = [JustJoinJobs(), NoFluffJobs(), BullDogJobs(), JobsForGeek()]
