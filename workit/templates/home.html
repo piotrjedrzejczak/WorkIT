@@ -26,7 +26,10 @@
                   <div class="tile">{{ form.submit(class="btn btn-outline-primary") }}</div>
                </div>
             </form>
-            {% for offer in offers %}
+         </div>
+      </div>
+      <div class="col-22">
+         {% for offer in offers %}
                <div class="offer">
                   <a href="{{ offer.url }}" target="_blank"></a>
                   <div class="offer__info-container">
@@ -67,7 +70,6 @@
                   </div>
                </div>
             {% endfor %}
-         </div>
       </div>
    </div>
 {% endblock %}
