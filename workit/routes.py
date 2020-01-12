@@ -1,7 +1,7 @@
 from flask import render_template, request
 from workit.forms import SearchForm
 from workit import app, collection
-from workit.const import CATEGORIES, WEBSITES
+from workit.const import WEBSITES
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -31,16 +31,5 @@ def home():
         return render_template(
             "home.html",
             offers=collection.aggregate([{"$sample": {"size": 20}}]),
-            form=form
-        )
-
-
-@app.route('/category/<cat>')
-def category(cat):
-    form = SearchForm()
-    return render_template(
-            "home.html",
-            offers=collection.find({"category": cat}),
-            categories=CATEGORIES,
             form=form
         )
