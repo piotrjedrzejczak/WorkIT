@@ -17,7 +17,7 @@ def home():
             query.update({"city": form.cities.data})
         offers = collection.find(query)
         return render_template(
-                "home.html",
+                "layout.html",
                 offers=offers,
                 form=form
             )
@@ -29,7 +29,7 @@ def home():
                     [dict(offer) for offer in website.offers]
                 )
         return render_template(
-            "home.html",
+            "layout.html",
             offers=collection.aggregate([{"$sample": {"size": 20}}]),
             form=form
         )

@@ -1,11 +1,10 @@
 from flask import Flask
-from flask_pymongo import PyMongo
+from pymongo import MongoClient
+from os import environ
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb+srv://username:password@workitcluster-nege2.mongodb.net/WorkIT?retryWrites=true&w=majority" # noqa E501
-app.config["MONGO_DBNAME"] = "WorkIT"
 app.config["SECRET_KEY"] = "VerySecretKey"
-mongo = PyMongo(app)
-collection = mongo.db["Offers"]
+client = MongoClient(environ['DB_PORT_27017_TCP_ADDR'], 27017)
+collection = client.db.offers
 
 from workit import routes  # noqa E402
