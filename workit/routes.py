@@ -2,12 +2,7 @@ from flask import render_template, request, redirect, url_for
 from workit.forms import SearchForm
 from workit import app, collection
 from workit.const import WEBSITES
-
-from flask import Blueprint, render_template
-from flask_login import current_user
-from flask import current_app as app
-from flask_login import login_required
-from flask_login import logout_user
+from flask_login import current_user, login_required, logout_user
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -44,10 +39,12 @@ def home():
 @app.route('/home', methods=['GET'])
 @login_required
 def dashboard():
-    return render_template('layout.html',
-                           title='Flask-Login',
-                           current_user=current_user,
-                           body="You are now logged in!")
+    return render_template(
+        'layout.html',
+        title='Flask-Login',
+        current_user=current_user,
+        body="You are now logged in!"
+    )
 
 # TODO: logout implementation
 @app.route("/logout")
