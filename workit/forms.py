@@ -24,7 +24,6 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Search')
 
 class SignupForm(FlaskForm):
-    keyword = StringField('Keyword')
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[Length(min=6), Email(message='Enter a valid email.'), DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, message='The password must have atleast six characters.')])
@@ -33,7 +32,6 @@ class SignupForm(FlaskForm):
     submit = SubmitField('Register')
 
 class LoginForm(FlaskForm):
-    keyword = StringField('Keyword')
     email = StringField('Email', validators=[DataRequired(), Email(message='Enter a valid email.')])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')

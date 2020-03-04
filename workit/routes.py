@@ -36,19 +36,19 @@ def home():
         )
 
 # Test for non-logged users
-@app.route('/home', methods=['GET'])
-@login_required
-def dashboard():
-    return render_template(
-        'layout.html',
-        title='Flask-Login',
-        current_user=current_user,
-        body="You are now logged in!"
-    )
+# @app.route('/home', methods=['GET'])
+# @login_required
+# def dashboard():
+#     return render_template(
+#         'layout.html',
+#         title='Flask-Login',
+#         current_user=current_user,
+#         body="You are now logged in!"
+#     )
 
 # TODO: logout implementation
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login.html'))
+    return redirect(url_for('login'))
