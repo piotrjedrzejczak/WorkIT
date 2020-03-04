@@ -1,0 +1,54 @@
+<!doctype html>
+
+<head>
+  <title>Login page</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
+</head>
+
+    <body>
+      <div class="formwrapper">
+        <form action="" method="POST">
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+          </div>
+        {% endfor %}
+
+        <h1>Please login</h1>
+        <br>
+
+        <fieldset class="email">
+          {{ form.email.label }}
+          {{ form.email(placeholder='youremail@example.com') }}
+          {% if form.email.errors %}
+          <ul class="errors">
+            {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </fieldset>
+
+        <fieldset class="password">
+          {{ form.password.label }}
+          {{ form.password }}
+          {% if form.email.errors %}
+          <ul class="errors">
+            {% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %} 
+          </ul>
+          {% endif %}
+        </fieldset>
+
+        <div class="submitbutton">
+          <input id="submit" type="submit" value="Submit">
+        </div>
+
+        <div class="loginsignup">
+          <span>Don't have an account? <a href="{{ url_for('signup') }}">Sign up.</a></span>
+        </div>
+
+      </form>
+    </div>
+  </body>
+</html>

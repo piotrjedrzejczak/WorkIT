@@ -8,9 +8,19 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
 </head>
 
+<header>
+    
+    <ul>
+        <li><img class="logo" src="/static/img/logo.png" alt="xd"></li>
+        <li><a href="{{ url_for('home') }}"> Home </a></li>
+        <li><a href="{{ url_for('login') }}"> Login </a></li>
+        <li><a href="{{ url_for('signup') }}"> Signup </a></li>
+    </ul>
+    <img class="logo2" src="/static/img/logo3.jpg" alt="xd">
+</header>
+
 <body>
     <div class="container">
-        <img class="logo" src="/static/img/logo.png" alt="xd">
         <div class="row">
             <div class="col1">
                 {% include "searchform.html" %}

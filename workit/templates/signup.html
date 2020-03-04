@@ -1,0 +1,83 @@
+<!doctype html>
+
+<head>
+  <title>Login page</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
+</head>
+
+  <body>
+      <div class="formwrapper">
+          <form method="POST">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+          {% endfor %}
+
+          <h1>Sign Up</h1>
+
+          <fieldset class="name">
+            {{ form.name.label }}
+            {{ form.name(placeholder='Jan Kowalski') }}
+            {% if form.name.errors %}
+              <ul class="errors">
+                {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </fieldset>
+
+          <fieldset class="email">
+            {{ form.email.label }}
+            {{ form.email(placeholder='youremail@example.com') }}
+            {% if form.email.errors %}
+              <ul class="errors">
+                {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </fieldset>
+
+          <fieldset class="password">
+            {{ form.password.label }}
+            {{ form.password }}
+            {% if form.password.errors %}
+              <ul class="errors">
+                {% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </fieldset>
+          
+          <fieldset class="confirm">
+            {{ form.confirm.label }}
+            {{ form.confirm }}
+            {% if form.confirm.errors %}
+              <ul class="errors">
+                {% for error in form.confirm.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </fieldset>
+
+          <fieldset class="github">
+            {{ form.github.label }}
+            {{ form.github(placeholder='https://github.com/Example') }}
+          </fieldset>
+
+          <div class="submitbutton">
+            <input id="submit" type="submit" value="Submit">
+          </div>
+
+          </form>
+
+          <div class="loginsignup">
+            <span>Already have an account? <a href="{{ url_for('login') }}">Log in.</a></span>
+          </div>
+      </div>
+
+
+
+
+  </body>
+
+</html>
