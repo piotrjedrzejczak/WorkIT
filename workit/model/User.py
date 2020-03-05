@@ -11,7 +11,7 @@ class User(UserMixin):
         self._id = uuid4().hex if _id is None else _id
         self.name = name
         self.email = email
-        self.password = self.set_password(password)
+        self.password = self.set_password(password)  #COS Z SET_PASSWORD JEST NIE TAK
     
     def get_id(self):
         return self._id

@@ -35,12 +35,10 @@ def signup():
     signup_form = SignupForm()
     if request.method == 'POST':
         if signup_form.validate_on_submit():
-            flash('Wyjebalem sie 111111')
             name = signup_form.name.data
             email = signup_form.email.data
             password = signup_form.password.data
             existing_user = User.get_by_email(email)
-            flash('Wyjebalem sie')
             if existing_user is None:
                 user = User(
                     name=name,
