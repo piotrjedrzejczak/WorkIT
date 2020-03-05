@@ -12,10 +12,19 @@ class User(UserMixin):
         self.name = name
         self.email = email
         self.password = self.set_password(password)  #COS Z SET_PASSWORD JEST NIE TAK
-    
+        #self.password = password
+        
     def get_id(self):
         return self._id
-
+    
+    #@property
+    #def password(self):
+    #    return self._password
+    #
+    #@password.setter
+    #def password(self, password):
+    #    self._password = generate_password_hash(password, method='sha256')
+    
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')
         return self.password
