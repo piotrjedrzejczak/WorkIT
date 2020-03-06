@@ -15,11 +15,11 @@ def login():
             email = login_form.email.data
             password = login_form.password.data
             user = User.get_by_email(email)
-            if not user and user.check_password(password):
-                flash('Invalid username or password')
-                return redirect(url_for('.login'))
-            login_user(user)
-            return redirect(url_for('.home'))
+            if user and user.check_password(password):
+                login_user(user)
+                return redirect(url_for('.home'))
+            flash('Invalid username or password')
+            return redirect(url_for('.login'))
 
     return render_template(
         'login.html',

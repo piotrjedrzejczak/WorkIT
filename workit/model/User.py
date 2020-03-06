@@ -26,6 +26,8 @@ class User(UserMixin):
 
 
     def check_password(self, secret):
+        flash(self.password)
+        flash(secret)
         return check_password_hash(self.password, secret)
 
     def __repr__(self):
