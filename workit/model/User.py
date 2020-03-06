@@ -15,20 +15,14 @@ class User(UserMixin):
         
     def get_id(self):
         return self._id
-    
-    @property
-    def password(self):
-       return self._password
-    
-    @password.setter
-    def password(self, secret):
-       self._password = generate_password_hash(secret, method='sha256')
 
 
-    def check_password(self, secret):
-        flash(self.password)
-        flash(secret)
-        return check_password_hash(self.password, secret)
+    def set_password(self, password):
+        self.password = generate_password_hash(password, method='sha256')
+
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -39,28 +33,11 @@ class User(UserMixin):
         if data is not None:
             return cls(**data)
 
-    # @classmethod
-    # def get_by_name(cls, name):
-    #     data = users_collection.find_one({"name": name})
-    #     if data is not None:
-    #         return cls(**data)
-
     @classmethod
     def get_by_id(cls, uid):
         data = users_collection.find_one({"_id": uid})
         if data is not None:
             return cls(**data)
-
-    @classmethod
-    def register(cls, name, email, password):
-        user = cls.get_by_email(email)
-        if user is None:
-            new_user = cls(name, email, password)
-            new_user.save_user()
-            session['email'] = email
-            return True
-        else:
-            return False
 
     def jsonify(self):
         return {

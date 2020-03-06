@@ -9,13 +9,14 @@ from workit import login_manager, app
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('.home'))
+
     login_form = LoginForm()
     if request.method == 'POST':
         if login_form.validate_on_submit():
             email = login_form.email.data
             password = login_form.password.data
             user = User.get_by_email(email)
-            if user and user.check_password(password):
+            if user and user.check_password(password=password):
                 login_user(user)
                 return redirect(url_for('.home'))
             flash('Invalid username or password')
@@ -45,6 +46,7 @@ def signup():
                     email=email,
                     password=password
                 )
+                user.set_password(password)
                 user.save_user()
                 login_user(user)
                 return redirect(url_for('.home'))
