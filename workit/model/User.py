@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from flask import session
+from flask import session, flash
 from uuid import uuid4
 from werkzeug.security import generate_password_hash, check_password_hash
 from workit import users_collection
@@ -11,26 +11,22 @@ class User(UserMixin):
         self._id = uuid4().hex if _id is None else _id
         self.name = name
         self.email = email
-        self.password = self.set_password(password)  #COS Z SET_PASSWORD JEST NIE TAK
-        #self.password = password
+        self.password = password
         
     def get_id(self):
         return self._id
     
-    #@property
-    #def password(self):
-    #    return self._password
-    #
-    #@password.setter
-    #def password(self, password):
-    #    self._password = generate_password_hash(password, method='sha256')
+    @property
+    def password(self):
+       return self._password
     
-    def set_password(self, password):
-        self.password = generate_password_hash(password, method='sha256')
-        return self.password
+    @password.setter
+    def password(self, secret):
+       self._password = generate_password_hash(secret, method='sha256')
 
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+
+    def check_password(self, secret):
+        return check_password_hash(self.password, secret)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -41,11 +37,11 @@ class User(UserMixin):
         if data is not None:
             return cls(**data)
 
-    @classmethod
-    def get_by_name(cls, name):
-        data = users_collection.find_one({"name": name})
-        if data is not None:
-            return cls(**data)
+    # @classmethod
+    # def get_by_name(cls, name):
+    #     data = users_collection.find_one({"name": name})
+    #     if data is not None:
+    #         return cls(**data)
 
     @classmethod
     def get_by_id(cls, uid):
