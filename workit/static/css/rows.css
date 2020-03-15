@@ -35,9 +35,12 @@ body {
     text-align: center;
     width: 100%;
     opacity: 0.9;
+    margin-top: 76px;
 }
 
 ul {
+    position: absolute;
+    width: 100%;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -208,4 +211,19 @@ li:last-child {
         margin: 20px 0;
     }
 
+}
+
+body{
+  height: 100vh;
+  text-align: center;
+}
+  /*Trigger Button*/
+.login-trigger {
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(to bottom right, #B05574, #F87E7B);
+  padding: 15px 30px;
+  border-radius: 30px;
+  position: relative; 
+  top: 50%;
 }

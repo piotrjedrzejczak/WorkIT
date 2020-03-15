@@ -1,8 +1,8 @@
 <form method="POST" action="">
-   {{ form.hidden_tag() }}
+   {{ searchForm.hidden_tag() }}
    <div class="tile-box">
       <div class="tile-box">
-         {% for city in form.cities %}
+         {% for city in searchForm.cities %}
          <div class="btn btn-outline-success tile">
             {{ city.label }}
             {{ city }}
@@ -10,14 +10,14 @@
          {% endfor %}
       </div>
       <div class="tile-box">
-         {% for category in form.categories %}
+         {% for category in searchForm.categories %}
          <div class="btn btn-outline-secondary tile">
             {{ category.label }}
             {{ category }}
          </div>
          {% endfor %}
       </div>
-      <div class="tile-input">{{ form.keyword(class="form-control form-control-lg") }}</div>
-      <div class="tile-submit">{{ form.submit(class="btn btn-outline-primary") }}</div>
+      <div class="tile-input">{{ searchForm.keyword(class="form-control form-control-lg") }}</div>
+      <div class="tile-submit">{{ searchForm.submit(class="btn btn-outline-primary") }}</div>
    </div>
 </form>

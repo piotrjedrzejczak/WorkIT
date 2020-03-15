@@ -1,86 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <head>
-  <title>Login page</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </head>
+  <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
 
-  <body>
-      <div class="formwrapper">
-          <form method="POST" action="">
-            {{ form.hidden_tag() }}
+        <form action="{{ url_for('signup') }}" method="POST">
+          {{ signupForm.hidden_tag() }}
+      
+          {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+          </div>
+        {% endfor %} 
 
-            {% for message in get_flashed_messages() %}
-            <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-          {% endfor %}
+        <div class="modal-body mx-3">
+        
+          <div class="md-form mb-4">
+            <i class="fas fa-envelope prefix grey-text"></i>
 
-          <h1>Sign Up</h1>
-
-          <fieldset class="name">
-            {{ form.name.label }}
-            {{ form.name(placeholder='Jan Kowalski') }}
-            {% if form.name.errors %}
+            {{ signupForm.name.label }}
+            {{ signupForm.name(placeholder='Jan Kowalski') }}
+            {% if signupForm.name.errors %}
               <ul class="errors">
-                {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
+                {% for error in signupForm.email.errors %}<li>{{ error }}</li>{% endfor %}
               </ul>
             {% endif %}
-          </fieldset>
 
-          <fieldset class="email">
-            {{ form.email.label }}
-            {{ form.email(placeholder='youremail@example.com') }}
-            {% if form.email.errors %}
-              <ul class="errors">
-                {% for error in form.email.errors %}<li>{{ error }}</li>{% endfor %}
-              </ul>
-            {% endif %}
-          </fieldset>
-
-          <fieldset class="password">
-            {{ form.password.label }}
-            {{ form.password }}
-            {% if form.password.errors %}
-              <ul class="errors">
-                {% for error in form.password.errors %}<li>{{ error }}</li>{% endfor %}
-              </ul>
-            {% endif %}
-          </fieldset>
-          
-          <fieldset class="confirm">
-            {{ form.confirm.label }}
-            {{ form.confirm }}
-            {% if form.confirm.errors %}
-              <ul class="errors">
-                {% for error in form.confirm.errors %}<li>{{ error }}</li>{% endfor %}
-              </ul>
-            {% endif %}
-          </fieldset>
-
-          <fieldset class="github">
-            {{ form.github.label }}
-            {{ form.github(placeholder='https://github.com/Example') }}
-          </fieldset>
-
-          <div class="submitbutton">
-            {{ form.submit(class="btn btn-outline-primary") }}
           </div>
 
-          </form>
 
-          <div class="loginsignup">
-            <span>Already have an account? <a href="{{ url_for('login') }}">Log in.</a></span>
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+
+            {{ signupForm.email.label }}
+            {{ signupForm.email(placeholder='youremail@example.com') }}
+            {% if signupForm.email.errors %}
+              <ul class="errors">
+                {% for error in signupForm.email.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            
           </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+
+            {{ signupForm.password.label }}
+            {{ signupForm.password }}
+            {% if signupForm.password.errors %}
+              <ul class="errors">
+                {% for error in signupForm.password.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+
+            {{ signupForm.confirm.label }}
+            {{ signupForm.confirm }}
+            {% if signupForm.confirm.errors %}
+              <ul class="errors">
+                {% for error in signupForm.confirm.errors %}<li>{{ error }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            
+          </div>
+
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+
+            {{ signupForm.github.label }}
+            {{ signupForm.github(placeholder='https://github.com/Example') }}
+            
+          </div>
+
+        </div>
+          {{ signupForm.submitSignup(class="btn btn-outline-primary") }}
       </div>
+    </div>
+  </div>
 
+   <a href="" data-toggle="modal" data-target="#modalRegisterForm"> Signup </a>
 
-
-
-  </body>
+  </form>
 
 </html>

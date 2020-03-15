@@ -1,6 +1,6 @@
 *.pyc
 *.json
 *.db
-_*
++*
 .vscode
 test.py

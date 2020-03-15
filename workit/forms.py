@@ -3,9 +3,9 @@ from wtforms import SubmitField, StringField, RadioField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
 from workit.const import CATEGORIES
 
-
 class SearchForm(FlaskForm):
     keyword = StringField('Keyword')
+    submitLogin = SubmitField('Log In')
     cities = RadioField('City', choices=[
         ('', 'All'),
         ('Warszawa', 'Warszawa'),
@@ -29,9 +29,9 @@ class SignupForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6, message='The password must have atleast six characters.')])
     confirm = PasswordField('Confirm Your password', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
     github = StringField('Github', validators=[Optional()])
-    submit = SubmitField('Register')
+    submitSignup = SubmitField('Register')
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email(message='Enter a valid email.')])
     password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Log In')
+    submitLogin = SubmitField('Log In')
