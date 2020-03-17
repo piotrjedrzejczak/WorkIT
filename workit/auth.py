@@ -1,44 +1,36 @@
-from flask import redirect, render_template, flash, request, url_for
+from flask import redirect, render_template, flash, request, url_for, session
 from flask_login import current_user, login_user
-from workit.forms import LoginForm, SignupForm
+from workit.forms import LoginForm, SignupForm, SearchForm
 from workit.model.User import User
 from workit import login_manager, app
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('.home'))
-
-    login_form = LoginForm()
+    searchForm = SearchForm()
+    loginForm = LoginForm()
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('.home'))
     if request.method == 'POST':
-        if login_form.validate_on_submit():
-            email = login_form.email.data
-            password = login_form.password.data
+        if loginForm.validate_on_submit():
+            email = loginForm.email.data
+            password = loginForm.password.data
             user = User.get_by_email(email)
             if user and user.check_password(password=password):
                 login_user(user)
-                return redirect(url_for('.home'))
+                session['logged_in'] = True
+                return redirect(url_for('home')) 
             flash('Invalid username or password')
-            return redirect(url_for('.login'))
-
-    return render_template(
-        'login.html',
-        title='Log in.',
-        form=login_form,
-        template='login-page',
-        body="Log in with your User account."
-    )
-
+            return redirect(url_for('home'))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    signup_form = SignupForm()
+    signupForm = SignupForm()
     if request.method == 'POST':
-        if signup_form.validate_on_submit():
-            name = signup_form.name.data
-            email = signup_form.email.data
-            password = signup_form.password.data
+        if signupForm.validate_on_submit():
+            name = signupForm.name.data
+            email = signupForm.email.data
+            password = signupForm.password.data
             existing_user = User.get_by_email(email)
             if existing_user is None:
                 user = User(
@@ -56,7 +48,7 @@ def signup():
     return render_template(
         'signup.html',
         title='Create an Account.',
-        form=signup_form,
+        signupForm=signupForm,
         template='signup-page',
         body="Sign up for a user account."
     )
