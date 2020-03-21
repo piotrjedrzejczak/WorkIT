@@ -81,11 +81,12 @@ class PracujJobs(Website):
                         )
                     else:
                         return None
-                except IndexError:
+                except IndexError as err:
                     logger.info(
-                        f'Index Out Of Range. \
-                        Raw Salary {raw_salary}, \
-                        After Split {salary_details}, \
-                        After Last Split {stake}')
+                        'List Index Out Of Range' +
+                        f'Error Message {err}' +
+                        f'Raw Salary {raw_salary}' +
+                        f'After Split {salary_details}' +
+                        f'After Last Split {stake}')
             return None
         return None
