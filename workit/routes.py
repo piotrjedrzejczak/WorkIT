@@ -23,7 +23,8 @@ def home():
                 "layout.html",
                 offers=offers,
                 searchForm=searchForm,
-                loginForm=loginForm
+                loginForm=loginForm,
+                signupForm=signupForm
             )
     else:
         if collection.count_documents({}) == 0:
