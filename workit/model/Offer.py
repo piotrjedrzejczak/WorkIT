@@ -24,7 +24,7 @@ class Offer:
         self.techstack = techstack
         self.experience = experience
         self.category = self._classify()
-        self._id = self._generate_id()
+        self._id = uuid4().hex
 
     def __repr__(self):
         return str(self.__dict__)
@@ -109,10 +109,12 @@ class Offer:
     def salary(self, value):
         self._salary = {'floor': None, 'ceiling': None, 'currency': None}
         if value is not None and value != '':
-            currency = sub(r'[^a-zA-Z]', '', value)
+            currency = sub(r'[\W\d]', '', value)
             split = value.split('-')
-            if currency.lower() in CURRENCIES:
-                self._salary['currency'] = currency.upper()
+            for label, abbreviations in CURRENCIES.items():
+                if currency.lower() in abbreviations:
+                    self._salary['currency'] = label
+                    break
             if len(split) == 2:
                 floor = sub(r'[^0-9]', '', split[0])
                 ceiling = sub(r'[^0-9]', '', split[1])
@@ -132,6 +134,3 @@ class Offer:
                 if tech.lower() in tags:
                     return category
         return 'Other'
-
-    def _generate_id(self):
-        return str(uuid4())
