@@ -18,6 +18,6 @@ users_collection = client.db.users
 
 with app.app_context():
     from . import routes
-    from . import auth
+    from . import auth # noqa F401
 
 from workit import routes  # noqa E402
