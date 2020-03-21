@@ -1,5 +1,5 @@
 from flask import redirect, render_template, flash, request, url_for, session
-from flask_login import current_user, login_user
+from flask_login import login_user
 from workit.forms import LoginForm, SignupForm, SearchForm
 from workit.model.User import User
 from workit import login_manager, app
@@ -19,9 +19,10 @@ def login():
             if user and user.check_password(password=password):
                 login_user(user)
                 session['logged_in'] = True
-                return redirect(url_for('home')) 
+                return redirect(url_for('home'))
             flash('Invalid username or password')
             return redirect(url_for('home'))
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
