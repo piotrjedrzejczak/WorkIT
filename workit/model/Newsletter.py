@@ -109,7 +109,7 @@ class Newsletter:
         q = {
             'city': { "$in": self.locations },
             'category': { "$in": self.categories },
-            
+
         }
 
 
