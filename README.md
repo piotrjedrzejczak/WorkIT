@@ -1,9 +1,9 @@
 # WorkIT
 
-### Build
+## Build & Run
 
-> docker-compose build
+> docker-compose up --build
 
-### Run
+## Accessing Mongo
 
-> docker-compose up
+> docker exec -it workit_db_1 bash

@@ -28,10 +28,52 @@ body {
 }
 
 .logo {
+    width: 185px;
+}
+
+.logo2 {
     text-align: center;
     width: 100%;
-    height: 100%;
+    opacity: 0.9;
+    margin-top: 76px;
 }
+
+ul {
+    position: absolute;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 76px;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    border-radius: 1px solid #bbb;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: cenetr;
+    padding: 26px 16px;
+}
+
+li a:hover{
+    background-color: #111;
+    text-emphasis: none;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+.element-is-sticky {
+    background: blue !important;
+ }
+
 
 .offer {
     width: 100%;
@@ -169,4 +211,19 @@ body {
         margin: 20px 0;
     }
 
+}
+
+body{
+  height: 100vh;
+  text-align: center;
+}
+  /*Trigger Button*/
+.login-trigger {
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(to bottom right, #B05574, #F87E7B);
+  padding: 15px 30px;
+  border-radius: 30px;
+  position: relative; 
+  top: 50%;
 }

@@ -66,11 +66,22 @@ POLISH_CHARS = {
     'ń': 'n'
 }
 
-CURRENCIES = {'pln', 'eur', 'usd'}
+CURRENCIES = {
+    'PLN': {'pln', 'zł', 'złoty'},
+    'EUR': {'eur', 'euro', '€'},
+    'USD': {'usd', 'dollar', 'dolar', '$'}
+}
 
 from workit.websites.BullDog import BullDogJobs  # noqa E402
 from workit.websites.JustJoin import JustJoinJobs  # noqa E402
 from workit.websites.NoFluff import NoFluffJobs  # noqa E402
 from workit.websites.JobsForGeek import JobsForGeek # noqa E402
+from workit.websites.Pracuj import PracujJobs # noqa E402
 
-WEBSITES = [JustJoinJobs(), NoFluffJobs(), BullDogJobs(), JobsForGeek()]
+WEBSITES = [
+    JustJoinJobs(),
+    NoFluffJobs(),
+    BullDogJobs(),
+    JobsForGeek(),
+    PracujJobs()
+]
