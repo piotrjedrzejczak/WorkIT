@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
-
-<head>
+  <head>
     <title>WorkIT - Wyszukiwarka Ofert Pracy w IT</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
 
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
@@ -18,31 +18,31 @@
 </head>
 
 <header> 
-        <ul>
-            <li><img class="logo" src="/static/img/logo.png" alt="xd"></li>
-            <li><a href="{{ url_for('home') }}"> Home </a></li>
-            {% if session['logged_in'] %}
-            <li><a href="{{ url_for('logout') }}"> Logout </a></li>
-            <li><a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a></li>
-            {% else %}
-                <li> {% include "login.html" %} </li>
-                <li> {% include "signup.html" %} </li>
-            {% endif %}
-        </ul>
+    <ul>
+        <li><img class="logo" src="/static/img/logo.png" alt="xd"></li>
+        <li><a href="{{ url_for('home') }}"> Home </a></li>
+        <li><a href="{{ url_for('logout') }}"> Logout </a></li>
+        <li><a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a></li>
+    </ul>
 </header>
 
 <body>
-    <img class="logo2" src="/static/img/logo3.jpg" alt="xd">
-    <div class="container">
-        <div class="row">
-            <div class="col1">
-                {% include "searchform.html" %}
-            </div>
-            <div class="col2">
-                {% include "offers.html" %}
-            </div>
-        </div>
-    </div>
+    <h1>Edit Profile</h1>
+    <form action="" method="post">
+        {{ editProfileForm.hidden_tag() }}
+        <p>
+            {{ editProfileForm.name.label }}<br>
+            {{ editProfileForm.name(size=32) }}<br>
+            {% for error in editProfileForm.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ editProfileForm.github.label }}<br>
+            {{ editProfileForm.github }}<br>
+        </p>
+        <p>{{ editProfileForm.submitEdit(class="btn btn-outline-primary") }}</p>
+    </form>
 </body>
 
 </html>

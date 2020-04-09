@@ -1,5 +1,5 @@
 from flask import redirect, render_template, flash, request, url_for, session
-from flask_login import login_user
+from flask_login import login_user, current_user
 from workit.forms import LoginForm, SignupForm
 from workit.model.User import User
 from workit import login_manager, app
@@ -20,6 +20,7 @@ def login():
                 login_user(user)
                 session['logged_in'] = True
                 return redirect(url_for('home'))
+            # TODO: Proper call of error after incorrect login attempt
             flash('Invalid username or password')
             return redirect(url_for('home'))
 
@@ -32,12 +33,14 @@ def signup():
             name = signupForm.name.data
             email = signupForm.email.data
             password = signupForm.password.data
+            github = signupForm.github.data
             existing_user = User.get_by_email(email)
             if existing_user is None:
                 user = User(
                     name=name,
                     email=email,
-                    password=password
+                    password=password,
+                    github=github,
                 )
                 user.set_password(password)
                 user.save_user()

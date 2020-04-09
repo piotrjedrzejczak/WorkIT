@@ -39,7 +39,7 @@ CATEGORIES = {
         'analytics'
         },
     'Administration': {'admin', 'administrator'},
-    'RPA': {'rpa', 'robotic', 'automation', 'anywhere', 'uipath', 'blueprism'},
+    'RPA': {'rpa', 'robotic', 'anywhere automation', 'uipath', 'blueprism'},
     'SAP': {'sap', 'abap', 'hana'},
     'Security': {'security', 'cryptography', 'cybersecurity'},
     'Design': {'designer', 'ui', 'ux', 'design', 'adobe', 'photoshop'},
