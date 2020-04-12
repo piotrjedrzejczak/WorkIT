@@ -52,6 +52,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submitLogin = SubmitField('Log In')
 
+
 class EditProfileForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     github = StringField('Github', validators=[Optional()])

@@ -1,5 +1,5 @@
 from flask import redirect, render_template, flash, request, url_for, session
-from flask_login import login_user, current_user
+from flask_login import login_user
 from workit.forms import LoginForm, SignupForm
 from workit.model.User import User
 from workit import login_manager, app

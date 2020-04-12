@@ -2,7 +2,6 @@ from flask_login import UserMixin
 from uuid import uuid4
 from werkzeug.security import generate_password_hash, check_password_hash
 from workit import users_collection
-from hashlib import md5
 
 
 class User(UserMixin):
@@ -13,13 +12,13 @@ class User(UserMixin):
         self.email = email
         self.password = password
         self.github = github
-    
+
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
     def get_id(self):
         return self._id
-    
+
     def set_password(self, password):
         self.password = generate_password_hash(password, method='sha256')
 
@@ -48,22 +47,16 @@ class User(UserMixin):
     def get_by_github(cls, github):
         data = users_collection.find_one({"github": github})
         if data is not None:
-          return cls(**data)
+            return cls(**data)
 
     @classmethod
-    def get_by_password(cls, github):
+    def get_by_password(cls, password):
         data = users_collection.find_one({"password": password})
         if data is not None:
-          return cls(**data)
+            return cls(**data)
 
     def jsonify(self):
-        return {
-            "_id": self._id,
-            "name": self.name,
-            "email": self.email,
-            "password": self.password,
-            "github": self.github,
-        }
+        return self.__dict__
 
     def save_user(self):
         users_collection.insert(self.jsonify())

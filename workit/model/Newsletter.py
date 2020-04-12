@@ -1,5 +1,6 @@
 from workit import users_collection
 from datetime import date
+from workit import newsletters_collection
 
 
 class Newsletter:
@@ -8,7 +9,6 @@ class Newsletter:
     __MIN_RESULTS = 1
     __MAX_FREQUENCY = 7
     __MIN_FREQUENCY = 1
-
 
     def __init__(
         self,
@@ -28,11 +28,10 @@ class Newsletter:
         self.frequency = frequency
         self.last_sent = None
 
-
     @property
     def user_id(self):
         return self._user_id
-    
+
     @user_id.setter
     def user_id(self, uid):
         user = users_collection.find({'_id': uid})
@@ -53,65 +52,51 @@ class Newsletter:
             raise TypeError(
                 f'Locations have to be of type list, not {type(cities)}'
             )
-        
+
     @property
     def categories(self):
         return self._categories
 
     @categories.setter
-    def categories(self, chosen_categories):
-        if type(chosen_categories):
-            self._categories = chosen_categories
+    def categories(self, choises):
+        if type(choises):
+            self._categories = choises
         else:
             raise TypeError(
-                f'Categories have to be of type list, not {type(chosen_categories)}'
-        )
-
-    @property
-    def keywords(self):
-        return self._keywords
-
-    @keywords.setter
-    def keywords(self, kws):
-        if type(kws) is list:
-            self._keywords = kws
-        else:
-            raise TypeError(
-                f'Keywords have to be of type list, not {type(kws)}'
+                f'Categories have to be of type list, not {type(choises)}'
             )
 
     @property
     def max_results(self):
         return self._max_results
-    
+
     @max_results.setter
     def max_results(self, value):
-        if value > __MAX_RESULTS:
-            self._max_results = __MAX_RESULTS
-        if value < __MIN_RESULTS:
-            self._max_results = __MIN_RESULTS
+        if value > self.__MAX_RESULTS:
+            self._max_results = self.__MAX_RESULTS
+        if value < self.__MIN_RESULTS:
+            self._max_results = self.__MIN_RESULTS
 
     @property
     def frequency(self):
         return self._frequency
-    
+
     @frequency.setter
     def frequency(self, days):
-        if days > __MAX_FREQUENCY:
-            self.frequency = __MAX_FREQUENCY
-        if days < __MIN_FREQUENCY:
-            self.frequency = __MIN_FREQUENCY
-        
+        if days > self.__MAX_FREQUENCY:
+            self.frequency = self.__MAX_FREQUENCY
+        if days < self.__MIN_FREQUENCY:
+            self.frequency = self.__MIN_FREQUENCY
+
     def timestamp(self):
         self.last_sent = date.today()
-    
+
     def find_offers(self):
-        q = {
-            'city': { "$in": self.locations },
-            'category': { "$in": self.categories },
-
-        }
-
-
-
-    
+        query = {}
+        if self.locations:
+            query['city'] = {'$in': self.locations}
+        if self.categories:
+            query['category'] = {"$in": self.categories}
+        if self.keywords:
+            query['$text'] = {'$search': self.keywords}
+        return newsletters_collection.find(query).limit(self.max_results)

@@ -1,11 +1,8 @@
 from flask import render_template, request, redirect, session, url_for, flash
 from workit.forms import SearchForm, LoginForm, SignupForm, EditProfileForm
-from workit import app, collection, users_collection
+from workit import app, offers_collection, users_collection
 from workit.const import WEBSITES
 from flask_login import current_user, login_required, logout_user
-
-from workit.model.User import User
-
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -21,7 +18,7 @@ def home():
             query.update({"category": searchForm.categories.data})
         if searchForm.cities.data:
             query.update({"city": searchForm.cities.data})
-        offers = collection.find(query)
+        offers = offers_collection.find(query)
         return render_template(
                 "layout.html",
                 offers=offers,
@@ -30,15 +27,15 @@ def home():
                 signupForm=signupForm
             )
     else:
-        if collection.count_documents({}) == 0:
+        if offers_collection.count_documents({}) == 0:
             for website in WEBSITES:
                 website.create_offers()
-                collection.insert_many(
+                offers_collection.insert_many(
                     [dict(offer) for offer in website.offers]
                 )
         return render_template(
             "layout.html",
-            offers=collection.aggregate([{"$sample": {"size": 20}}]),
+            offers=offers_collection.aggregate([{"$sample": {"size": 20}}]),
             searchForm=searchForm,
             loginForm=loginForm,
             signupForm=signupForm
@@ -49,30 +46,29 @@ def home():
 @login_required
 def profile(name):
     user = current_user.name
-
     return render_template(
         'profile.html',
         user=user,
         current_user=current_user,
         body="You are now logged in!"
     )
-    
+
+
 @app.route('/profile/<name>/edit', methods=['GET', 'POST'])
 @login_required
 def editProfile(name):
-    editProfileForm=EditProfileForm()
+    editProfileForm = EditProfileForm()
     user = current_user.name
     if request.method == 'POST':
         payload = {"$set": {}}
         if editProfileForm.name.data:
-            payload["$set"].update({"name": editProfileForm.name.data})
+            payload["$set"] = {"name": editProfileForm.name.data}
         if editProfileForm.github.data:
-            payload["$set"].update({"github": editProfileForm.github.data})
+            payload["$set"] = {"github": editProfileForm.github.data}
         users_collection.update_one({"_id": current_user.get_id()}, payload)
-
         flash('Your change have been saved.')
         return redirect(url_for('profile', name=name))
-            
+
     return render_template(
         'editProfile.html',
         title='Edit Profile',
@@ -80,6 +76,7 @@ def editProfile(name):
         current_user=current_user,
         editProfileForm=editProfileForm
     )
+
 
 @app.route("/logout")
 @login_required
