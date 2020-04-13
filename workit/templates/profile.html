@@ -29,17 +29,26 @@
 <body>
     <img class="logo2" src="/static/img/logo3.jpg" alt="xd">
 
-    <div class="container">
-        <div class="row">
-        <a href="{{ url_for('editProfile', name=current_user.name) }}" class="btn btn-primary a-btn-slide-text">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-            <span><strong>Edit</strong></span>            
-        </a>
+    <div id="tittle"> <b><i> Account settings </i></b></div>
+
+    <div id="box">
+        <div id="tittleName"> <b>Identificator</b> 
+            <image src="/static/img/edit.svg" id="editImage"> <a href="{{ url_for('editProfile', name=current_user.name, holder=current_user.name) }}" id="edit"> Update </a> </image>
+        <div id="user_name">
+            Name: {{ current_user.name }}
         </div>
     </div>
-    <h1>User: {{ current_user.name }}</h1>
-    <h2>Email: {{ current_user.email }}</h2>
-    <h2>Github: {{ current_user.github }}</h2>
+
+    <div id="box2">
+        <div id="tittleGithub"> <b>Github Address</b> 
+            <image src="/static/img/edit.svg" id="editImage2"> <a href="{{ url_for('editProfile', name=current_user.name, holder=current_user.github) }}" id="edit2"> Update </a> </image>
+        <div id="user_github">
+            Github: {{ current_user.github }}
+        </div>
+    </div>
+
+    <!-- <h2>Email: {{ current_user.email }}</h2>
+    <h2>Github: {{ current_user.github }}</h2> -->
 </body>
 
 </html>

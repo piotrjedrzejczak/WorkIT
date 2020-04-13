@@ -17,18 +17,17 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" rel="stylesheet" crossorigin="anonymous"></script>
 </head>
 
-<header> 
+<!-- <header> 
     <ul>
         <li><img class="logo" src="/static/img/logo.png" alt="xd"></li>
         <li><a href="{{ url_for('home') }}"> Home </a></li>
         <li><a href="{{ url_for('logout') }}"> Logout </a></li>
         <li><a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a></li>
     </ul>
-</header>
+</header> -->
 
 <body>
-    <h1>Edit Profile</h1>
-    <form action="" method="post">
+    <form action="{{ url_for('editProfile', name=current_user.name, holder=current_user.name) }}" method="post">
         {{ editProfileForm.hidden_tag() }}
         <p>
             {{ editProfileForm.name.label }}<br>
@@ -37,11 +36,18 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+    </form>
+
+    
+    <form action="{{ url_for('editProfile', name=current_user.name, holder=current_user.github) }}" method="post">
+        {{ editProfileForm.hidden_tag() }}
         <p>
             {{ editProfileForm.github.label }}<br>
-            {{ editProfileForm.github }}<br>
+            {{ editProfileForm.github(size=32) }}<br>
+            {% for error in editProfileForm.github.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
-        <p>{{ editProfileForm.submitEdit(class="btn btn-outline-primary") }}</p>
     </form>
 </body>
 

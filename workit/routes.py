@@ -46,24 +46,29 @@ def home():
 @login_required
 def profile(name):
     user = current_user.name
+    editProfileForm = EditProfileForm()
     return render_template(
         'profile.html',
         user=user,
         current_user=current_user,
+        editProfileForm=editProfileForm,
         body="You are now logged in!"
     )
 
 
-@app.route('/profile/<name>/edit', methods=['GET', 'POST'])
+# holer was made for tests. Looking for a proper way for change data on site
+@app.route('/profile/<name>/edit/<holder>', methods=['GET', 'POST']) #holder
 @login_required
-def editProfile(name):
+def editProfile(name, holder): #holder
     editProfileForm = EditProfileForm()
     user = current_user.name
     if request.method == 'POST':
         payload = {"$set": {}}
         if editProfileForm.name.data:
+            holder = editProfile.name.data # holer
             payload["$set"] = {"name": editProfileForm.name.data}
         if editProfileForm.github.data:
+            holder = editProfile.github.data # holder
             payload["$set"] = {"github": editProfileForm.github.data}
         users_collection.update_one({"_id": current_user.get_id()}, payload)
         flash('Your change have been saved.')
@@ -73,6 +78,7 @@ def editProfile(name):
         'editProfile.html',
         title='Edit Profile',
         user=user,
+        holder=holder, #holder
         current_user=current_user,
         editProfileForm=editProfileForm
     )
