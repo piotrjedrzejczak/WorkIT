@@ -26,14 +26,12 @@
     </ul>
 </header>
 
-<body>
-
     <div class="vertical-menu">
         <a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a>
         <a href="#"> Newsletter </a>
         <a href="#"> Help </a>
     </div> 
-
+    
     <img class="logo2" src="/static/img/logo3.jpg" alt="xd">
 
     <div id="tittle"> <b><i> Account settings </i></b></div>
@@ -44,7 +42,7 @@
         <div id="user_name">
             Name: {{ current_user.name }}
         </div>
-    </div>
+    </div>  
 
     <div id="email">
         <div id="tittle_data"> <b>Email Address</b> 
@@ -56,12 +54,21 @@
 
     <div id="github">
         <div id="tittle_data"> <b>Github Address</b> 
-            <image src="/static/img/edit.svg" id="editImage3"> <a href="{{ url_for('editProfileGithub', name=current_user.name) }}" id="edit3"> Update </a> </image>
+            <image src="/static/img/edit.svg" id="editImage3"> <a href="{{ url_for('profile', name=current_user.name) }}" id="edit3"> Cancel </a> </image>
         <div id="user_data">
-            Github: {{ current_user.github }}
+            <form action="" method="post">
+                {{ editProfileForm.hidden_tag() }}
+                <p>
+                    {{ editProfileForm.githubEdit.label }} : {{ editProfileForm.githubEdit(size=32) }}
+                    {% for error in editProfileForm.githubEdit.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <div id="submitbutton">
+                        {{ editProfileForm.submitEdit(class="btn btn-outline-primary") }}
+                    </div>
+                </p>
+            </form> 
         </div>
     </div>
-
-</body>
 
 </html>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField, PasswordField
-from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Optional, url
 from workit.const import CATEGORIES
 
 
@@ -54,6 +54,13 @@ class LoginForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    github = StringField('Github', validators=[Optional()])
+    nameEdit = StringField('Name', validators=[DataRequired()])
+    githubEdit = StringField('Github', validators=[
+        url(message='Enter a valid Github URL'),
+        Optional()]
+    )
+    emailEdit = StringField('Email', validators=[
+        DataRequired(),
+        Email(message='Enter a valid email.')]
+    )
     submitEdit = SubmitField('Submit')
