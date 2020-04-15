@@ -26,8 +26,6 @@
     </ul>
 </header>
 
-<body>
-
     <div class="vertical-menu">
         <a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a>
         <a href="#"> Newsletter </a>
@@ -40,9 +38,20 @@
 
     <div id="name">
         <div id="tittleName"> <b>Identificator</b> 
-            <image src="/static/img/edit.svg" id="editImage"> <a href="{{ url_for('editProfileName', name=current_user.name) }}" id="edit"> Update </a> </image>
+            <image src="/static/img/edit.svg" id="editImage"> <a href="{{ url_for('profile', name=current_user.name) }}" id="edit"> Cancel </a> </image>
         <div id="user_name">
-            Name: {{ current_user.name }}
+            <form action="" method="post">
+                {{ editProfileForm.hidden_tag() }}
+                <p>
+                    {{ editProfileForm.nameEdit.label }} : {{ editProfileForm.nameEdit(size=32) }}
+                    {% for error in editProfileForm.nameEdit.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <div id="submitbutton">
+                        {{ editProfileForm.submitEdit(class="btn btn-outline-primary") }}
+                    </div>
+                </p>
+            </form> 
         </div>
     </div>
 
@@ -61,7 +70,5 @@
             Github: {{ current_user.github }}
         </div>
     </div>
-
-</body>
 
 </html>

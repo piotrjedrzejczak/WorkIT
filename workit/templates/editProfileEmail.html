@@ -26,8 +26,6 @@
     </ul>
 </header>
 
-<body>
-
     <div class="vertical-menu">
         <a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a>
         <a href="#"> Newsletter </a>
@@ -44,24 +42,32 @@
         <div id="user_name">
             Name: {{ current_user.name }}
         </div>
-    </div>
+    </div> 
 
     <div id="email">
         <div id="tittle_data"> <b>Email Address</b> 
-            <image src="/static/img/edit.svg" id="editImage2"> <a href="{{ url_for('editProfileEmail', name=current_user.name) }}" id="edit2"> Update </a> </image>
+            <image src="/static/img/edit.svg" id="editImage2"> <a href="{{ url_for('profile', name=current_user.name) }}" id="edit2"> Cancel </a> </image>
         <div id="user_data">
-            Email: {{ current_user.email }}
+            <form action="" method="post">
+                {{ editProfileForm.hidden_tag() }}
+                <p>
+                    {{ editProfileForm.emailEdit.label }} : {{ editProfileForm.emailEdit(size=32) }}
+                    {% for error in editProfileForm.emailEdit.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    <div id="submitbutton">
+                        {{ editProfileForm.submitEdit(class="btn btn-outline-primary") }}
+                    </div>
+                </p>
+            </form> 
         </div>
-    </div>
 
-    <div id="github">
-        <div id="tittle_data"> <b>Github Address</b> 
-            <image src="/static/img/edit.svg" id="editImage3"> <a href="{{ url_for('editProfileGithub', name=current_user.name) }}" id="edit3"> Update </a> </image>
-        <div id="user_data">
-            Github: {{ current_user.github }}
+        <div id="github_correct">
+            <div id="tittle_data"> <b>Github Address</b> 
+                <image src="/static/img/edit.svg" id="editImage3"> <a href="{{ url_for('editProfileGithub', name=current_user.name) }}" id="edit3"> Update </a> </image>
+            <div id="user_data">
+                Github: {{ current_user.github }}
+            </div>
         </div>
-    </div>
-
-</body>
 
 </html>

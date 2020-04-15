@@ -47,36 +47,81 @@ def home():
 @login_required
 def profile(name):
     user = current_user.name
+    editProfileForm = EditProfileForm()
     return render_template(
         'profile.html',
         user=user,
         current_user=current_user,
+        editProfileForm=editProfileForm,
         body="You are now logged in!"
     )
 
-
-@app.route('/profile/<name>/edit', methods=['GET', 'POST'])
+@app.route('/profile/<name>/editName', methods=['GET', 'POST'])
 @login_required
-def editProfile(name):
+def editProfileName(name):
     editProfileForm = EditProfileForm()
     user = current_user.name
     if request.method == 'POST':
-        payload = {"$set": {}}
-        if editProfileForm.name.data:
-            payload["$set"] = {"name": editProfileForm.name.data}
-        if editProfileForm.github.data:
-            payload["$set"] = {"github": editProfileForm.github.data}
-        users_collection.update_one({"_id": current_user.get_id()}, payload)
-        flash('Your change have been saved.')
-        return redirect(url_for('profile', name=name))
+        if editProfileForm.validate_on_submit():
+            payload = {"$set": {}}
+            if editProfileForm.nameEdit.data:
+                payload["$set"] = {"name": editProfileForm.nameEdit.data}
+            users_collection.update_one({"_id": current_user.get_id()}, payload)
+            flash('Your change have been saved.')
+            return redirect(url_for('profile', name=name))
 
     return render_template(
-        'editProfile.html',
+        'editProfileName.html',
         title='Edit Profile',
         user=user,
         current_user=current_user,
         editProfileForm=editProfileForm
     )
+
+@app.route('/profile/<name>/editGithub', methods=['GET', 'POST'])
+@login_required
+def editProfileGithub(name):
+    editProfileForm = EditProfileForm()
+    user = current_user.name
+    if request.method == 'POST':
+        if editProfileForm.validate_on_submit():
+            payload = {"$set": {}}
+            if editProfileForm.githubEdit.data:
+                payload["$set"] = {"github": editProfileForm.githubEdit.data}
+            users_collection.update_one({"_id": current_user.get_id()}, payload)
+            flash('Your change have been saved.')
+            return redirect(url_for('profile', name=name))
+
+    return render_template(
+        'editProfileGithub.html',
+        title='Edit Profile',
+        user=user,
+        current_user=current_user,
+        editProfileForm=editProfileForm
+    )
+
+@app.route('/profile/<name>/editEmail', methods=['GET', 'POST'])
+@login_required
+def editProfileEmail(name):
+    editProfileForm = EditProfileForm()
+    user = current_user.name
+    if request.method == 'POST':
+        if editProfileForm.validate_on_submit():
+            payload = {"$set": {}}
+            if editProfileForm.emailEdit.data:
+                payload["$set"] = {"email": editProfileForm.emailEdit.data}
+            users_collection.update_one({"_id": current_user.get_id()}, payload)
+            flash('Your change have been saved.')
+            return redirect(url_for('profile', name=name))
+
+    return render_template(
+        'editProfileEmail.html',
+        title='Edit Profile',
+        user=user,
+        current_user=current_user,
+        editProfileForm=editProfileForm
+    )
+
 
 
 @app.route("/logout")
