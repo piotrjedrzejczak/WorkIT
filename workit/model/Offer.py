@@ -1,6 +1,8 @@
-from workit.const import CATEGORIES, CURRENCIES, POLISH_CHARS
+from workit.const import CATEGORIES, CURRENCIES, LOCATIONS
 from uuid import uuid4
 from re import sub
+from fuzzywuzzy import fuzz
+from unidecode import unidecode
 
 
 class Offer:
@@ -46,16 +48,25 @@ class Offer:
     @city.setter
     def city(self, name):
         if type(name) is str:
-            cleaned_city_name = name.split(',')[0] \
-                                    .replace('-', ' ') \
-                                    .lower() \
-                                    .strip()
-            for char in POLISH_CHARS.keys():
-                if char in cleaned_city_name:
-                    cleaned_city_name = cleaned_city_name.replace(
-                        char, POLISH_CHARS[char]
-                    )
-            self._city = cleaned_city_name.title()
+            # Replace everything in enclosed in parentheses
+            clean_name = sub(r'\(.+\)', '', name)
+            clean_name = unidecode(clean_name).replace('_', ' ').lower().strip() # noqa 501
+            best_score = 0
+            best_name = ''
+            for city in LOCATIONS:
+                clean_city = unidecode(city).lower()
+                match_score = fuzz.ratio(clean_city, clean_name)
+                if match_score == 100:
+                    best_score = match_score
+                    best_name = city
+                    break
+                if match_score > best_score:
+                    best_score = match_score
+                    best_name = city
+            if best_score < 80:
+                self._city = name.replace('_', ' ').title().strip()
+            else:
+                self._city = best_name
         else:
             raise ValueError(
                 'City field has to be of type str. ' +
