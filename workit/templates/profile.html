@@ -30,7 +30,7 @@
 
     <div class="vertical-menu">
         <a href="{{ url_for('profile', name=current_user.name) }}"> Profile </a>
-        <a href="#"> Newsletter </a>
+        <a href="{{ url_for('test_email', name=current_user.name) }}"> Newsletter </a>
         <a href="#"> Help </a>
     </div> 
 

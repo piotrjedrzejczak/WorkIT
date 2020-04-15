@@ -1,0 +1,7 @@
+Dear {{ user.user }}
+
+{{ user.name }} im not sure if it's working {{ user.current_name }}
+
+Regards,
+
+The workit admin

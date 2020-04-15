@@ -1,8 +1,10 @@
 from flask import render_template, request, redirect, session, url_for, flash
 from workit.forms import SearchForm, LoginForm, SignupForm, EditProfileForm
-from workit import app, offers_collection, users_collection
+from workit import app, offers_collection, users_collection, mail
 from workit.const import WEBSITES
 from flask_login import current_user, login_required, logout_user
+
+from flask_mail import Message
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -121,6 +123,20 @@ def editProfileEmail(name):
         editProfileForm=editProfileForm
     )
 
+@app.route('/profile/<name>/newsletter')
+@login_required
+def test_email(name):
+    body_template = render_template("test_email.txt", user=name)
+    html_template = render_template("test_email.html", user=name)
+    msg = Message( 
+        'Hello! %s' % current_user.name,
+        sender ='work.it@o2.pl', 
+        recipients = ['m.luszczewski@o2.pl'] 
+    ) 
+    # msg.body = body_template.encode('utf_8')
+    msg.html = html_template.encode('utf_8')
+    mail.send(msg) 
+    return 'Sent'  
 
 
 @app.route("/logout")
