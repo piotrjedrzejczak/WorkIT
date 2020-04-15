@@ -48,7 +48,7 @@ class BullDogJobs(Website):
                 )
                 html = BSoup(response.text, 'html.parser')
                 for listing in html.find_all(
-                    class_=compile(r'results-list-item')
+                    class_=compile(r'job-item')
                 ):
                     try:
                         offer = self._parse_offer(listing)
@@ -66,21 +66,16 @@ class BullDogJobs(Website):
             from the HTML element to create a Offer object.
             It returns a tuple, sorted according to the Offer Class API. '''
 
-        title = self._get_html_text(offer, classname='result-header-name')
-        company = self._get_html_text(offer, classname='pop-black desktop')
-        city = self._get_html_text(offer, classname='pop-mobile')
-        salary = self._get_html_text(offer, classname='pop-green')
+        title = self._get_html_text(offer, classname='title')
+        company = self._get_html_text(offer, classname='company')
+        city = self._get_html_text(offer, classname='location')
+        salary = self._get_html_text(offer, classname='salary')
         techstack = self._get_html_text(
             offer,
-            classname='btn btn-sm btn-default nohover',
+            classname='btn btn-sm btn-default',
             multiple=True
         )
-        url = self._get_html_text(
-            offer,
-            classname='result-header-name',
-            by_attr=True,
-            attr='href'
-        )
+        url = offer['href']
         exp = None
 
         return title, company, city, url, salary, techstack, exp

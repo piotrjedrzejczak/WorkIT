@@ -50,7 +50,7 @@ class Newsletter:
             self._locations = cities
         else:
             raise TypeError(
-                f'Locations have to be of type list, not {type(cities)}'
+                f'Locations have to be of type list, not {type(cities)}.'
             )
 
     @property
@@ -63,7 +63,7 @@ class Newsletter:
             self._categories = choises
         else:
             raise TypeError(
-                f'Categories have to be of type list, not {type(choises)}'
+                f'Categories have to be of type list, not {type(choises)}.'
             )
 
     @property

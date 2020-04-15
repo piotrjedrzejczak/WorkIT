@@ -32,9 +32,10 @@ def home():
         if offers_collection.count_documents({}) == 0:
             for website in WEBSITES:
                 website.create_offers()
-                offers_collection.insert_many(
-                    [dict(offer) for offer in website.offers]
-                )
+                if website.offers:
+                    offers_collection.insert_many(
+                        [dict(offer) for offer in website.offers]
+                    )
         return render_template(
             "layout.html",
             offers=offers_collection.aggregate([{"$sample": {"size": 20}}]),
