@@ -1,5 +1,6 @@
 {% for offer in offers %}
-    <div class="mt-2 card w-70">
+  <div class="offer" style="padding-top: 10px;">
+    <div class="card w-70">
       <h4 class="card-header">
         {{ offer.title }}
       </h5>
@@ -35,4 +36,5 @@
     <div class="card-footer">
       {{ offer.category }}
     </div>
+  </div>
 {% endfor %}

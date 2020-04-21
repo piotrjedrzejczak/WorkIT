@@ -119,7 +119,7 @@ def editProfileEmail(name):
 @app.route("/profile/<name>/newsletter")
 @login_required
 def test_email(name):
-    body_template = render_template("test_email.txt", user=name)
+    # body_template = render_template("test_email.txt", user=name)
     html_template = render_template("test_email.html", user=name)
     msg = Message(
         "Hello! %s" % current_user.name,
