@@ -1,148 +1,140 @@
 from flask import render_template, request, redirect, session, url_for, flash
-from workit.forms import SearchForm, LoginForm, SignupForm, EditProfileForm
-from workit import app, offers_collection, users_collection, mail
+from workit.forms import SearchForm, EditProfileForm
+from workit import app, mail, mongo
 from workit.const import WEBSITES
 from flask_login import current_user, login_required, logout_user
-
 from flask_mail import Message
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def home():
     searchForm = SearchForm()
-    loginForm = LoginForm()
-    signupForm = SignupForm()
-    if request.method == 'POST':
-        query = {}
-        if searchForm.keyword.data:
-            query.update({"$text": {"$search": searchForm.keyword.data}})
-        if searchForm.categories.data:
-            query.update({"category": searchForm.categories.data})
-        if searchForm.cities.data:
-            query.update({"city": searchForm.cities.data})
-        offers = offers_collection.find(query)
-        return render_template(
-                "layout.html",
-                offers=offers,
-                searchForm=searchForm,
-                loginForm=loginForm,
-                signupForm=signupForm
-            )
+    if request.method == "POST":
+        results = mongo.search_offers(
+            keyword=searchForm.keyword.data,
+            category=searchForm.categories.data,
+            city=searchForm.cities.data,
+        )
+        return render_template("home.html", offers=results, searchForm=searchForm)
     else:
-        if offers_collection.count_documents({}) == 0:
+        if mongo.offers.count_documents({}) == 0:
             for website in WEBSITES:
                 website.create_offers()
-                if website.offers:
-                    offers_collection.insert_many(
-                        [dict(offer) for offer in website.offers]
-                    )
+                mongo.insert_multiple_offers(website.serialize_offers())
         return render_template(
-            "layout.html",
-            offers=offers_collection.aggregate([{"$sample": {"size": 20}}]),
-            searchForm=searchForm,
-            loginForm=loginForm,
-            signupForm=signupForm
+            "home.html", offers=mongo.offers_sample(20), searchForm=searchForm,
         )
 
+
 # Test for non-logged users
-@app.route('/profile/<name>', methods=['GET'])
+@app.route("/profile/<name>", methods=["GET"])
 @login_required
 def profile(name):
     user = current_user.name
     editProfileForm = EditProfileForm()
     return render_template(
-        'profile.html',
+        "profile.html",
         user=user,
         current_user=current_user,
         editProfileForm=editProfileForm,
-        body="You are now logged in!"
+        body="You are now logged in!",
     )
 
-@app.route('/profile/<name>/editName', methods=['GET', 'POST'])
+
+@app.route("/profile/<name>/editName", methods=["GET", "POST"])
 @login_required
 def editProfileName(name):
     editProfileForm = EditProfileForm()
     user = current_user.name
-    if request.method == 'POST':
+    if request.method == "POST":
         if editProfileForm.validate_on_submit():
-            payload = {"$set": {}}
-            if editProfileForm.nameEdit.data:
-                payload["$set"] = {"name": editProfileForm.nameEdit.data}
-            users_collection.update_one({"_id": current_user.get_id()}, payload)
-            flash('Your change have been saved.')
-            return redirect(url_for('profile', name=name))
+            update_success = mongo.update_one_field(
+                id=current_user.get_id(),
+                field=name,
+                value=editProfileForm.nameEdit.data,
+            )
+            if update_success:
+                flash("Your change have been saved.")
+            return redirect(url_for("profile", name=name))
 
     return render_template(
-        'editProfileName.html',
-        title='Edit Profile',
+        "editProfileName.html",
+        title="Edit Profile",
         user=user,
         current_user=current_user,
-        editProfileForm=editProfileForm
+        editProfileForm=editProfileForm,
     )
 
-@app.route('/profile/<name>/editGithub', methods=['GET', 'POST'])
+
+@app.route("/profile/<name>/editGithub", methods=["GET", "POST"])
 @login_required
 def editProfileGithub(name):
     editProfileForm = EditProfileForm()
     user = current_user.name
-    if request.method == 'POST':
+    if request.method == "POST":
         if editProfileForm.validate_on_submit():
-            payload = {"$set": {}}
-            if editProfileForm.githubEdit.data:
-                payload["$set"] = {"github": editProfileForm.githubEdit.data}
-            users_collection.update_one({"_id": current_user.get_id()}, payload)
-            flash('Your change have been saved.')
-            return redirect(url_for('profile', name=name))
+            update_success = mongo.update_one_field(
+                id=current_user.get_id(),
+                field="name",
+                value=editProfileForm.nameEdit.data,
+            )
+            if update_success:
+                flash("Your change have been saved.")
+            return redirect(url_for("profile", name=name))
 
     return render_template(
-        'editProfileGithub.html',
-        title='Edit Profile',
+        "editProfileGithub.html",
+        title="Edit Profile",
         user=user,
         current_user=current_user,
-        editProfileForm=editProfileForm
+        editProfileForm=editProfileForm,
     )
 
-@app.route('/profile/<name>/editEmail', methods=['GET', 'POST'])
+
+@app.route("/profile/<name>/editEmail", methods=["GET", "POST"])
 @login_required
 def editProfileEmail(name):
     editProfileForm = EditProfileForm()
     user = current_user.name
-    if request.method == 'POST':
+    if request.method == "POST":
         if editProfileForm.validate_on_submit():
-            payload = {"$set": {}}
-            if editProfileForm.emailEdit.data:
-                payload["$set"] = {"email": editProfileForm.emailEdit.data}
-            users_collection.update_one({"_id": current_user.get_id()}, payload)
-            flash('Your change have been saved.')
-            return redirect(url_for('profile', name=name))
+            update_success = mongo.update_one_field(
+                id=current_user.get_id(),
+                field=name,
+                value=editProfileForm.nameEdit.data,
+            )
+            if update_success:
+                flash("Your change have been saved.")
+            return redirect(url_for("profile", name=name))
 
     return render_template(
-        'editProfileEmail.html',
-        title='Edit Profile',
+        "editProfileEmail.html",
+        title="Edit Profile",
         user=user,
         current_user=current_user,
-        editProfileForm=editProfileForm
+        editProfileForm=editProfileForm,
     )
 
-@app.route('/profile/<name>/newsletter')
+
+@app.route("/profile/<name>/newsletter")
 @login_required
 def test_email(name):
     body_template = render_template("test_email.txt", user=name)
     html_template = render_template("test_email.html", user=name)
-    msg = Message( 
-        'Hello! %s' % current_user.name,
-        sender ='work.it@o2.pl', 
-        recipients = ['m.luszczewski@o2.pl'] 
-    ) 
+    msg = Message(
+        "Hello! %s" % current_user.name,
+        sender="work.it@o2.pl",
+        recipients=["m.luszczewski@o2.pl"],
+    )
     # msg.body = body_template.encode('utf_8')
-    msg.html = html_template.encode('utf_8')
-    mail.send(msg) 
-    return 'Sent'  
+    msg.html = html_template.encode("utf_8")
+    mail.send(msg)
+    return "Sent"
 
 
 @app.route("/logout")
 @login_required
 def logout():
-    session['logged_in'] = False
+    session["logged_in"] = False
     logout_user()
-    return redirect(url_for('.home'))
+    return redirect(url_for(".home"))

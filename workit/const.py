@@ -351,3 +351,24 @@ WEBSITES = [
     JobsForGeek(),
     PracujJobs()
 ]
+
+FORM_CITY_CHOICES = [
+    ('', 'All'),
+    ('Remote', 'Remote'),
+    ('Warszawa', 'Warszawa'),
+    ('Kraków', 'Kraków'),
+    ('Wrocław', 'Wrocław'),
+    ('Poznań', 'Poznań'),
+    ('Gdańsk', 'Gdańsk'),
+    ('Katowice', 'Katowice'),
+    ('Łódź', 'Łódź'),
+    ('Gliwice', 'Gliwice'),
+    ('Gdynia', 'Gdynia'),
+    ('Białystok', 'Białystok'),
+    ('Lublin', 'Lublin'),
+    ('Opole', 'Opole'),
+]
+
+FORM_CATEGORY_CHOICES = [
+    (label, label) for label in CATEGORIES.keys()
+]

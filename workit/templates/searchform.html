@@ -1,23 +1,29 @@
-<form method="POST" action="">
-   {{ searchForm.hidden_tag() }}
-   <div class="tile-box">
-      <div class="tile-box">
-         {% for city in searchForm.cities %}
-         <div class="btn btn-outline-success tile">
-            {{ city.label }}
-            {{ city }}
-         </div>
-         {% endfor %}
+<form method="POST" style="padding-top: 10px;">
+  {{ searchForm.hidden_tag() }}
+    <div class="form-group">
+      <div class="btn-group-toggle" data-toggle='buttons'>
+        {% for city in searchForm.cities %}
+          <label class="m-1 btn btn-outline-success" for='cities-{{ loop.index0 }}'>
+            {{- city -}}
+            {{- city.label.text -}}
+          </label>
+        {% endfor %}
       </div>
-      <div class="tile-box">
-         {% for category in searchForm.categories %}
-         <div class="btn btn-outline-secondary tile">
-            {{ category.label }}
-            {{ category }}
-         </div>
-         {% endfor %}
+    </div>
+    <div class="form-group">
+      <div class="btn-group-toggle" data-toggle='buttons'>
+        {% for category in searchForm.categories %}
+          <label class="m-1 btn btn-outline-primary" for='categories-{{ loop.index0 }}'>
+            {{- category -}}
+            {{- category.label.text -}}
+          </label>
+        {% endfor %}
       </div>
-      <div class="tile-input">{{ searchForm.keyword(class="form-control form-control-lg") }}</div>
-      <div class="tile-submit">{{ searchForm.submit(class="btn btn-outline-primary") }}</div>
-   </div>
+    </div>
+    <div class="m-1 form-group">
+      {{ searchForm.keyword(class="form-control") }}
+    </div>
+    <div class="m-1 mt-3 form-group">
+      {{ searchForm.submit(class="btn btn-outline-dark btn-block") }}
+    </div>
 </form>

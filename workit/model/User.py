@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from uuid import uuid4
 from werkzeug.security import generate_password_hash, check_password_hash
-from workit import users_collection
+from workit import mongo
 
 
 class User(UserMixin):
@@ -27,31 +27,31 @@ class User(UserMixin):
 
     @classmethod
     def get_by_id(cls, _id):
-        data = users_collection.find_one({"_id": _id})
+        data = mongo.users.find_one({"_id": _id})
         if data is not None:
             return cls(**data)
 
     @classmethod
     def get_by_name(cls, name):
-        data = users_collection.find_one({"name": name})
+        data = mongo.users.find_one({"name": name})
         if data is not None:
             return cls(**data)
 
     @classmethod
     def get_by_email(cls, email):
-        data = users_collection.find_one({"email": email})
+        data = mongo.users.find_one({"email": email})
         if data is not None:
             return cls(**data)
 
     @classmethod
     def get_by_github(cls, github):
-        data = users_collection.find_one({"github": github})
+        data = mongo.users.find_one({"github": github})
         if data is not None:
             return cls(**data)
 
     @classmethod
     def get_by_password(cls, password):
-        data = users_collection.find_one({"password": password})
+        data = mongo.users.find_one({"password": password})
         if data is not None:
             return cls(**data)
 
@@ -59,4 +59,4 @@ class User(UserMixin):
         return self.__dict__
 
     def save_user(self):
-        users_collection.insert(self.jsonify())
+        mongo.users.insert(self.jsonify())

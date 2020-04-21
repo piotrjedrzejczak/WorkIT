@@ -1,9 +1,7 @@
-from abc import ABC
-from abc import abstractmethod
+class Website():
 
-
-class Website(ABC):
-
-    @abstractmethod
     def create_offers(self):
-        pass
+        raise NotImplementedError
+
+    def serialize_offers(self):
+        return [dict(offer) for offer in self.offers]

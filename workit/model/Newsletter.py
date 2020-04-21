@@ -1,6 +1,5 @@
-from workit import users_collection
 from datetime import date
-from workit import newsletters_collection
+from workit import mongo
 
 
 class Newsletter:
@@ -34,7 +33,7 @@ class Newsletter:
 
     @user_id.setter
     def user_id(self, uid):
-        user = users_collection.find({'_id': uid})
+        user = mongo.users.find({'_id': uid})
         if user:
             self._user_id = uid
         else:
@@ -90,13 +89,3 @@ class Newsletter:
 
     def timestamp(self):
         self.last_sent = date.today()
-
-    def find_offers(self):
-        query = {}
-        if self.locations:
-            query['city'] = {'$in': self.locations}
-        if self.categories:
-            query['category'] = {"$in": self.categories}
-        if self.keywords:
-            query['$text'] = {'$search': self.keywords}
-        return newsletters_collection.find(query).limit(self.max_results)
