@@ -1,13 +1,9 @@
 from datetime import date
 from workit import mongo
+from uuid import uuid4
 
 
 class Newsletter:
-
-    __MAX_RESULTS = 30
-    __MIN_RESULTS = 1
-    __MAX_FREQUENCY = 7
-    __MIN_FREQUENCY = 1
 
     def __init__(
         self,
@@ -17,7 +13,8 @@ class Newsletter:
         keywords,
         max_results,
         frequency,
-        last_sent
+        last_sent=None,
+        _id=None
     ):
         self.user_id = user_id
         self.locations = locations
@@ -25,7 +22,8 @@ class Newsletter:
         self.keywords = keywords
         self.max_results = max_results
         self.frequency = frequency
-        self.last_sent = None
+        self.last_sent = last_sent
+        self._id = uuid4().hex if _id is None else _id
 
     @property
     def user_id(self):
@@ -39,53 +37,8 @@ class Newsletter:
         else:
             raise ValueError('No such user.')
 
-    @property
-    def locations(self):
-        return self._locations
-
-    @locations.setter
-    def locations(self, cities):
-        if type(cities) is list:
-            self._locations = cities
-        else:
-            raise TypeError(
-                f'Locations have to be of type list, not {type(cities)}.'
-            )
-
-    @property
-    def categories(self):
-        return self._categories
-
-    @categories.setter
-    def categories(self, choises):
-        if type(choises):
-            self._categories = choises
-        else:
-            raise TypeError(
-                f'Categories have to be of type list, not {type(choises)}.'
-            )
-
-    @property
-    def max_results(self):
-        return self._max_results
-
-    @max_results.setter
-    def max_results(self, value):
-        if value > self.__MAX_RESULTS:
-            self._max_results = self.__MAX_RESULTS
-        if value < self.__MIN_RESULTS:
-            self._max_results = self.__MIN_RESULTS
-
-    @property
-    def frequency(self):
-        return self._frequency
-
-    @frequency.setter
-    def frequency(self, days):
-        if days > self.__MAX_FREQUENCY:
-            self.frequency = self.__MAX_FREQUENCY
-        if days < self.__MIN_FREQUENCY:
-            self.frequency = self.__MIN_FREQUENCY
-
     def timestamp(self):
-        self.last_sent = date.today()
+        self.last_sent = date.today().__str__()
+
+    def save(self):
+        mongo.newsletters.insert(self.__dict__)

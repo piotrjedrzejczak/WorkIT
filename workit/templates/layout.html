@@ -22,8 +22,35 @@
 {% endblock %}
 
 {% block content %}
+
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class='alert alert-{{category}} alert-dismissible fade show' role='alert'>
+          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
   {% block page_content %}
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="p-2 sticky-top border rounded" style="top: 100px;">
+            {% block left_column %}
+            {% endblock %}
+          </div>
+        </div>
+        <div class="m-1 col-sm-7" style="width: 100%">
+          {% block right_column %}
+          {% endblock %}        
+        </div>
+      </div>  
+    </div>
   {% endblock %}
+
 {% endblock %}
 
 {% block script %}

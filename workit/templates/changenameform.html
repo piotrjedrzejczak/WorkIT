@@ -1,0 +1,22 @@
+{% extends 'profile.html' %}
+
+
+{% block right_column %}
+  <div class='p-3 mt-5 container-fluid border rounded' style="width: 300px;">
+    <form method='POST'>
+      {{ form.hidden_tag() }}
+      <div class='form-group'>
+        <label for='new_name'>New Name</label>
+        {% if form.new_name.errors %}
+          {{ form.new_name(class='form-control is-invalid') }}
+          <small style="color:red">{{ form.new_name.errors|join(', ')}}</small>
+        {% else %}
+          {{ form.new_name(class='form-control') }}
+        {% endif %}
+      </div>
+      <div class='p-2 col text-center'>
+        {{ form.submit(class='btn btn-primary')}}
+      </div>
+    </form>
+  </div>
+{% endblock %}
