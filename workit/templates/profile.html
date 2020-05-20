@@ -26,10 +26,12 @@
             <img src="/static/img/email.svg" width="20" height="20" alt="">
             &nbsp;&nbsp;{{ current_user.email }}
             </p>
+          {% if current_user.github %}
           <p class="card-text">
             <img src="/static/img/github.svg" width="20" height="20" alt="">
             &nbsp;&nbsp;{{ current_user.github }}
           </p>
+          {% endif %}
         </div>
       </div>
     </div>

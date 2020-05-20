@@ -25,12 +25,13 @@
             <img src="/static/img/city.svg" width="25" height="25" alt="">
             &nbsp;&nbsp;&nbsp;{{ offer.city }}
           <p>
-        {% if offer.salary.floor is not none %}
+        {% if offer.salary.floor %}
           <p class="card-text">
             <img src="/static/img/salary.svg" width="25" height="25" alt="">
             &nbsp;&nbsp;&nbsp;{{ offer.salary.floor }} - {{ offer.salary.ceiling }} {{ offer.salary.currency }}
           </p>
-      {% endif %}
+        {% endif %}
+      </div>
       <a href="{{ offer.url }}" class="stretched-link"></a>
     </div>
     <div class="card-footer">

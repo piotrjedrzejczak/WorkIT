@@ -136,9 +136,8 @@ def configure_newsletter():
                     form.max_results.data,
                     form.frequency.data
                 )
-                newsletter.timestamp()
                 newsletter.save()
-                flash('Your Newsletter Have Been Saved!', category='success')
+                flash('Your Newsletter Has Been Saved!', category='success')
                 return redirect(url_for('profile'))
             except ValueError:
                 flash('Invalid User', category='danger')

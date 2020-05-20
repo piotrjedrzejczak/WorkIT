@@ -1,10 +1,9 @@
 from pymongo import MongoClient
-from os import environ
 
 
 class MongoController:
 
-    _SESSION = MongoClient(host=environ["DB_PORT_27017_TCP_ADDR"], port=27017)
+    _SESSION = MongoClient('mongodb://db:27017/')
 
     def __init__(self):
         self.users = self._SESSION.db.users
@@ -62,4 +61,11 @@ class MongoController:
             query['category'] = {"$in": categories}
         if keywords:
             query['$text'] = {'$search': keywords}
-        return self.newsletters.find(query).limit(size)
+        return list(self.offers.find(query).limit(size))
+
+    def refresh_offers(self, new_offers):
+        if new_offers:
+            self.offers.delete_many({})
+            self.insert_multiple_offers(new_offers)
+            return True
+        raise ValueError('New set of offers is empty.')

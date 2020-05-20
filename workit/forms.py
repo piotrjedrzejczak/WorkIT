@@ -154,8 +154,8 @@ class ChangeGithubURLForm(FlaskForm):
 
 
 class NewsletterForm(FlaskForm):
-    locations = MultipleCheckboxField(choices=FORM_CITY_CHOICES, validators=[DataRequired()])
-    categories = MultipleCheckboxField(choices=FORM_CATEGORY_CHOICES, validators=[DataRequired()])
+    locations = MultipleCheckboxField(choices=FORM_CITY_CHOICES)
+    categories = MultipleCheckboxField(choices=FORM_CATEGORY_CHOICES)
     keywords = StringField("Keywords")
     max_results = IntegerField(
         "How many results do you want to recive?",
