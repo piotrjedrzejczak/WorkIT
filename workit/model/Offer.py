@@ -82,10 +82,11 @@ class Offer:
         self._experience = []
         if type(value) is list:
             self._experience = [exp.title() for exp in value]
-        if type(value) is str:
+        if type(value) is str and value != '':
             if value.find(',') == -1:
-                self._experience = value.split(',')
-            self._experience = [value.title()]
+                self._experience = [value.title()]
+            else:
+                self._experience = [exp.title() for exp in value.split(',')]
 
     @property
     def techstack(self):
@@ -98,8 +99,9 @@ class Offer:
             self._techstack = [tech.title() for tech in value]
         if type(value) is str and value != '':
             if value.find(',') == -1:
-                self._techstack = value.split(',')
-            self._techstack = [value.title()]
+                self._techstack = [value.title()]
+            else:
+                self._techstack = [tech.title() for tech in value.split(',')]
 
     @property
     def url(self):

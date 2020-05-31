@@ -80,15 +80,28 @@ class BullDogJobs(Website):
 
         return title, company, city, url, salary, techstack, exp
 
-    def _get_html_text(
-        self, html, classname,
-        by_attr=False, multiple=False, attr=''
-    ):
-        ''' Given an bs4.element.Tag object from BSoup,
-            it extracts raw text or specified HTML attribute.
-            If your element contains more than one object,
-            set multiple=True and you'll receive a list of strings.
-            If the specified element doesn't exist empty string is returned '''
+    def _get_html_text(self, html, classname, by_attr=False, multiple=False, attr=''):
+        '''Extracts text from Tag objects.
+
+        Given a bs4.element.Tag object, extracts raw text or specified HTML attribute.
+        In case of collections of Tag objects, set multiple=True and it will return
+        list of strings from that collection. If the specified Tag does not exist
+        empty string will be returned. If the HTML object is not a Tag element
+        None will be returned.
+
+        Args:
+            html: bs4.element.Tag object.
+            classname: Name of the HTML class the text is extracted from.
+            by_attr: True if a specific HTML attribute has to be extracted (Default=False).
+            multiple: True if html parameter is a collection of Tag objects (Default=False).
+            attr: Name of the HTML attribute to extract, used only when by_attr=True.
+
+        Returns:
+            Single String from the InnerText HTML attribute.
+            List of Strings in case of multiple Tags, each from the InnerText HTML attribute.
+            Empty String when the InnerText attribute of Tag is empty.
+            None in case of AttributeError or TypeError
+        '''
         try:
             if by_attr:
                 return html.find(class_=classname)[attr]
