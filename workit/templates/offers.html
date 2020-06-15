@@ -1,41 +1,41 @@
 {% for offer in offers %}
-<div class="offer">
-   <a href="{{ offer.url }}" target="_blank"></a>
-   <div class="offer__info-container">
-      <div>
-         <h2>{{ offer.title }}</h2>
+  <div class="offer" style="padding-top: 10px;">
+    <div class="card w-70">
+      <h4 class="card-header">
+        {{ offer.title }}
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">
+          <img src="/static/img/company.svg" width="25" height="25" alt="">
+          &nbsp;&nbsp;{{ offer.company }}
+        </h5>
+        {% if offer.techstack %}
+        <p class="card-text">
+          <img src="/static/img/technology.svg" width="25" height="25" alt="">
+          &nbsp;&nbsp;&nbsp;{{ offer.techstack|join(', ') }}
+        </p>
+        {% endif %}
+        {% if offer.experience %}
+          <p class="card-text">
+            <img src="/static/img/level.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.experience|join(', ') }}
+          </p>
+        {% endif %}
+          <p class="card-text">
+            <img src="/static/img/city.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.city }}
+          <p>
+        {% if offer.salary.floor %}
+          <p class="card-text">
+            <img src="/static/img/salary.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.salary.floor }} - {{ offer.salary.ceiling }} {{ offer.salary.currency }}
+          </p>
+        {% endif %}
       </div>
-      <div class="offer__box-container">
-         <div>
-            <img src="/static/img/company.svg" alt="xd">
-            <h3>{{ offer.company }}</h3>
-         </div>
-         <div>
-            <img src="/static/img/city.svg" alt="xd">
-            <h3>{{ offer.city }}</h3>
-         </div>
-         {% for tech in offer.techstack %}
-         <div>
-            <img src="/static/img/technology.svg" alt="xd">
-            <h3>{{ tech }}</h3>
-         </div>
-         {% endfor %}
-         {% for exp in offer.experience %}
-         <div>
-            <img src="/static/img/level.svg" alt="xd">
-            <h3>{{ exp }}</h3>
-         </div>
-         {% endfor %}
-         {% if offer.salary.floor is not none %}
-         <div>
-            <img src="/static/img/salary.svg" alt="xd">
-            <h3>{{ offer.salary.floor }} - {{ offer.salary.ceiling }} {{ offer.salary.currency }}</h3>
-         </div>
-         {% endif %}
-      </div>
-   </div>
-   <div class="offer__salary">
-      <h3>{{ offer.category }}</h3>
-   </div>
-</div>
+      <a href="{{ offer.url }}" class="stretched-link"></a>
+    </div>
+    <div class="card-footer">
+      {{ offer.category }}
+    </div>
+  </div>
 {% endfor %}

@@ -1,49 +1,59 @@
-<!doctype html>
-<html>
+{% block head%}
 
-<head>
-    <title>WorkIT - Wyszukiwarka Ofert Pracy w IT</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+  {% block meta %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% endblock  %}
 
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  {% block title %}
+    <title>WorkIT - IT Job Offers - Now in once place.</title>
+  {% endblock%}
 
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" rel="stylesheet" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  {% block styles %}
+    <link rel='Shortcut icon' href="{{url_for('static', filename='img/icon.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+  {% endblock %}
 
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" rel="stylesheet" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+{% endblock %}
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" rel="stylesheet" crossorigin="anonymous"></script>
-</head>
+{% block navbar %}
+  {% include 'navbar.html' %}
+{% endblock %}
 
-<header>
-    
-        <ul>
-            <li><img class="logo" src="/static/img/logo.png" alt="xd"></li>
-            <li><a href="{{ url_for('home') }}"> Home </a></li>
-            {% if session['logged_in'] %}
-            <li><a href="{{ url_for('logout') }}"> Logout </a></li>
-            <li><a href=""> Profile </a></li>
-            {% else %}
-                <li> {% include "login.html" %} </li>
-                <li> {% include "signup.html" %} </li>
-            {% endif %}
-        </ul>
-</header>
+{% block content %}
 
-<body>
-    <img class="logo2" src="/static/img/logo3.jpg" alt="xd">
-    <div class="container">
-        <div class="row">
-            <div class="col1">
-                {% include "searchform.html" %}
-            </div>
-            <div class="col2">
-                {% include "offers.html" %}
-            </div>
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class='alert alert-{{category}} alert-dismissible fade show' role='alert'>
+          <button type='button' class='close' data-dismiss='alert'>&times;</button>
+          {{ message }}
         </div>
-    </div>
-</body>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-</html>
+  {% block page_content %}
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="p-2 sticky-top border rounded" style="top: 100px;">
+            {% block left_column %}
+            {% endblock %}
+          </div>
+        </div>
+        <div class="m-1 col-sm-7" style="width: 100%">
+          {% block right_column %}
+          {% endblock %}        
+        </div>
+      </div>  
+    </div>
+  {% endblock %}
+
+{% endblock %}
+
+{% block script %}
+  <script src="{{url_for('static', filename='js/jquery-1.12.4.min.js')}}"></script>
+ 	<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+{% endblock %}

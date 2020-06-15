@@ -1,14 +1,39 @@
-<!doctype html>
+{% extends 'layout.html' %}
 
-<head>
-  <title>Login page</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/rows.css') }}">
-</head>
 
-<body>
-    dupa
-</body>
+{% block left_column %}
+  <div class="list-group">
+    <a href={{ url_for('profile') }} class="list-group-item list-group-item-action">Profile</a>
+    <a href={{ url_for('change_name') }} class="list-group-item list-group-item-action">Change Username</a>
+    <a href={{ url_for('change_password') }} class="list-group-item list-group-item-action">Change Password</a>
+    <a href={{ url_for('change_email') }} class="list-group-item list-group-item-action">Change Email</a>
+    <a href={{ url_for('change_github') }} class="list-group-item list-group-item-action">Change Github Account</a>
+    <a href={{ url_for('configure_newsletter') }} class="list-group-item list-group-item-action">Configure Newsletter</a>
+  </div>
+{% endblock  %}
 
-</html>
+{% block right_column %}
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Account Details</h5>
+          <p class="card-text"> 
+            <img src="/static/img/person.svg" width="20" height="20" alt="">
+            &nbsp;&nbsp;{{ current_user.name }}   
+          </p>
+          <p class="card-text">
+            <img src="/static/img/email.svg" width="20" height="20" alt="">
+            &nbsp;&nbsp;{{ current_user.email }}
+            </p>
+          {% if current_user.github %}
+          <p class="card-text">
+            <img src="/static/img/github.svg" width="20" height="20" alt="">
+            &nbsp;&nbsp;{{ current_user.github }}
+          </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

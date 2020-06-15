@@ -44,7 +44,7 @@ class JobsForGeek(Website):
                             'b2b_ceil': offer.get('b2bSalaryTo', None),
                             'b2b_freq': offer.get('b2bFrequency', None)
                         }),
-                        techstack=offer["skills"],
+                        techstack=offer.get("skills", None),
                         experience=None
                     )
                 )
