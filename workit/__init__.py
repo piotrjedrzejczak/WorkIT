@@ -24,7 +24,7 @@ with app.app_context():
     from . import routes # noqa F401
     from . import auth  # noqa F401
     from .tasks import send_newsletters, refresh_offers
-    delay = timedelta(minutes=5)
+    delay = timedelta(minutes=4)
     scheduler.add_job(refresh_offers, 'interval', hours=24, next_run_time=datetime.now())
     scheduler.add_job(send_newsletters, 'interval', hours=24, next_run_time=datetime.now() + delay)
     scheduler.start()

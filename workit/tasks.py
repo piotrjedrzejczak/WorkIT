@@ -8,7 +8,6 @@ from . import mongo, app
 
 def send_newsletters():
     with app.app_context():
-        print('sending newsletters', flush=True)
         collection = mongo.newsletters.find({})
         for document in collection:
             newsletter = Newsletter(**document)
@@ -16,13 +15,13 @@ def send_newsletters():
             if newsletter.last_sent:
                 delta = datetime.utcnow() - datetime.fromisoformat(newsletter.last_sent)
                 frequency = timedelta(days=newsletter.frequency).total_seconds()
-                if abs(delta.total_seconds() - frequency) < 3600:
+                if abs(delta.total_seconds() - frequency) > 3600:
                     body = render_template(
                         'newslettermail.html',
                         offers=newsletter.get_offers(),
                         username=user['name']
                     )
-                    send_mail(body, 'WorkIT - Newsletter', user['email'])
+                    send_mail(body, 'WorkIT - Newsletter', [user['email']])
                     newsletter.timestamp()
                     newsletter.update_lastsent()
             else:
@@ -37,7 +36,6 @@ def send_newsletters():
 
 
 def refresh_offers():
-    print('downloading offers', flush=True)
     fresh_offers = []
     for website in WEBSITES:
         website.create_offers()
