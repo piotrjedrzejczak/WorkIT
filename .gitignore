@@ -1,4 +1,7 @@
 *.pyc
 *.json
+*.cfg
 *.db
++*
 .vscode
+test.py

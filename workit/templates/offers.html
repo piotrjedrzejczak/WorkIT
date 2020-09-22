@@ -1,0 +1,41 @@
+{% for offer in offers %}
+  <div class="offer" style="padding-top: 10px;">
+    <div class="card w-70">
+      <h4 class="card-header">
+        {{ offer.title }}
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">
+          <img src="/static/img/company.svg" width="25" height="25" alt="">
+          &nbsp;&nbsp;{{ offer.company }}
+        </h5>
+        {% if offer.techstack %}
+        <p class="card-text">
+          <img src="/static/img/technology.svg" width="25" height="25" alt="">
+          &nbsp;&nbsp;&nbsp;{{ offer.techstack|join(', ') }}
+        </p>
+        {% endif %}
+        {% if offer.experience %}
+          <p class="card-text">
+            <img src="/static/img/level.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.experience|join(', ') }}
+          </p>
+        {% endif %}
+          <p class="card-text">
+            <img src="/static/img/city.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.city }}
+          <p>
+        {% if offer.salary.floor %}
+          <p class="card-text">
+            <img src="/static/img/salary.svg" width="25" height="25" alt="">
+            &nbsp;&nbsp;&nbsp;{{ offer.salary.floor }} - {{ offer.salary.ceiling }} {{ offer.salary.currency }}
+          </p>
+        {% endif %}
+      </div>
+      <a href="{{ offer.url }}" class="stretched-link"></a>
+    </div>
+    <div class="card-footer">
+      {{ offer.category }}
+    </div>
+  </div>
+{% endfor %}

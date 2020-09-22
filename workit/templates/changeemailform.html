@@ -1,0 +1,31 @@
+{% extends 'profile.html' %}
+
+
+{% block right_column %}
+  <div class='p-3 mt-5 container-fluid border rounded' style="width: 300px;">
+    <form method='POST'>
+      {{ form.hidden_tag() }}
+      <div class='form-group'>
+        <label for='new_email'>New Email</label>
+        {% if form.new_email.errors %}
+          {{ form.new_email(class='form-control is-invalid') }}
+          <small style="color:red">{{ form.new_email.errors|join(', ')}}</small>
+        {% else %}
+          {{ form.new_email(class='form-control') }}
+        {% endif %}
+      </div>
+      <div class='form-group'>
+        <label for='confirm_email'>Confirm New Email</label>
+        {% if form.confirm_email.errors %}
+          {{ form.confirm_email(class='form-control is-invalid') }}
+          <small style="color:red">{{ form.confirm_email.errors|join(', ')}}</small>
+        {% else %}
+          {{ form.confirm_email(class='form-control') }}
+        {% endif %}
+      </div>
+      <div class='p-2 col text-center'>
+        {{ form.submit(class='btn btn-primary')}}
+      </div>
+    </form>
+  </div>
+{% endblock %}

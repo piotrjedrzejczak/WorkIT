@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WorkIT Newsletter</title>
+  </head>
+  <body>
+    <table width="100%" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          Hey {{ username }}!
+          <p>
+            We've been working hard to get you the latest job postings in our newsletter.
+          </p>
+          <p>
+            Here are the offers!
+          </p>
+        </td>
+      </tr>
+    </table>
+    <table width="100%" border="1" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          {% for offer in offers %}
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class='title'>
+                {{ offer.title }}
+              </td>
+            </tr>
+            <tr>
+              <td class='company'>
+                {{ offer.company }}
+              </td>
+            </tr>
+            {% if offer.experience %}
+            <tr>
+              <td class='experience'>
+                {{ offer.experience|join(', ') }}
+              </td>
+            </tr>
+            {% endif %}
+            {% if offer.techstack %}
+            <tr>
+              <td class='techstack'>
+                {{ offer.techstack|join(', ') }}
+              </td>
+            </tr>
+            {% endif %}
+            <tr>
+              <td class='location'>
+                {{ offer.city }}
+              </td>
+            </tr>
+            {% if offer.salary.floor %}
+            <tr>
+              <td class='salary'>
+                {{ offer.salary.floor }} - {{ offer.salary.ceiling }} {{ offer.salary.currency }}
+              </td>
+            </tr>
+            {% endif %}
+            <tr>
+              <td class='url'>
+                {{ offer.url }}
+              </td>
+            </tr>
+          </table>
+          {% endfor %}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
