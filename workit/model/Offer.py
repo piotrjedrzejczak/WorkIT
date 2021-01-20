@@ -48,7 +48,7 @@ class Offer:
     @city.setter
     def city(self, name):
         if type(name) is str:
-            # Replace everything in enclosed in parentheses
+            # Replace everything enclosed in parentheses
             clean_name = sub(r'\(.+\)', '', name)
             clean_name = unidecode(clean_name).replace('_', ' ').lower().strip() # noqa 501
             best_score = 0
@@ -121,23 +121,28 @@ class Offer:
     @salary.setter
     def salary(self, value):
         self._salary = {'floor': None, 'ceiling': None, 'currency': None}
-        if value is not None and value != '':
+        if isinstance(value, dict):
+            if {'floor', 'ceiling', 'currency'} <= set(value):
+                self._salary = value
+        if isinstance(value, str):
+            # Replace any non word characters && digits
             currency = sub(r'[\W\d]', '', value)
-            split = value.split('-')
             for label, abbreviations in CURRENCIES.items():
                 if currency.lower() in abbreviations:
                     self._salary['currency'] = label
                     break
+            split = value.split('-')
             if len(split) == 2:
-                floor = sub(r'[^0-9]', '', split[0])
-                ceiling = sub(r'[^0-9]', '', split[1])
+                # Replace any non digit characters
+                floor = sub(r'[\D]', '', split[0])
+                ceiling = sub(r'[\D]', '', split[1])
                 if floor.isdecimal() and ceiling.isdecimal():
                     self._salary['floor'] = floor
                     self._salary['ceiling'] = ceiling
 
     def _classify(self):
-        description = sub(r'-', '', self.title).lower()
-        description = sub(r'[^a-zA-Z.+# ]', ' ', description).lower()
+        description = self.title.replace('-', '').lower()
+        description = sub(r'[^a-zA-Z.+# ]', ' ', description)
         for keyword in description.split():
             for category, tags in CATEGORIES.items():
                 if keyword in tags:
