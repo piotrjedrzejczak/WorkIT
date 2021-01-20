@@ -28,27 +28,27 @@ class JustJoinJobs(Website):
         self.__fetch_time = datetime.now()
         self._get_raw_offers()
         for offer in self._raw_offers:
+            new_offer = {
+                'title': offer.get('title'),
+                'company': offer.get('company_name'),
+                'city': offer.get('city'),
+                'experience': offer.get('experience_level'),
+                'url': 'https://justjoin.it/offers/' + offer.get('id'),
+                'techstack': [skill['name'] for skill in offer.get('skills')],
+            }
             try:
-                self.offers.append(
-                    Offer(
-                        title=offer['title'],
-                        company=offer['company_name'],
-                        city=offer['city'],
-                        url='https://justjoin.it/offers/' + offer['id'],
-                        salary='{floor} - {ceiling}{currency}'.format(
-                            floor=offer["salary_from"],
-                            ceiling=offer["salary_to"],
-                            currency=offer["salary_currency"]
-                        ),
-                        techstack=[
-                            skill['name']
-                            for skill in offer.get('skills', None)
-                        ],
-                        experience=offer.get('experience_level', None)
-                    )
-                )
+                salary = offer.get('employment_types')[0].get('salary')
+                new_offer['salary'] = {
+                    'floor': salary.get('from'),
+                    'ceiling': salary.get('to'),
+                    'currency': salary.get('currency'),
+                }
+            except (IndexError, AttributeError):
+                new_offer['salary'] = None
+            try:
+                self.offers.append(Offer(**new_offer))
             except ValueError:
-                logger.info(f'Failed to create offer, values passed: {offer}')
+                logger.info(f'Failed to create offer from object: {new_offer}')
                 continue
         return self.offers
 
