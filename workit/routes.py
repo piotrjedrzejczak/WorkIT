@@ -11,6 +11,7 @@ def home():
             keyword=searchForm.keyword.data,
             category=searchForm.categories.data,
             city=searchForm.cities.data,
+            exp=searchForm.exp.data
         )
         return render_template("home.html", offers=results, searchForm=searchForm)
     return render_template("home.html", offers=mongo.offers_sample(20), searchForm=searchForm)

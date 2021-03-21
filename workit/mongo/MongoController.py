@@ -13,7 +13,7 @@ class MongoController:
             [("title", "text"), ("techstack", "text")], default_language="english"
         )
 
-    def search_offers(self, keyword, category, city):
+    def search_offers(self, keyword, category, city, exp):
         query = {}
         if keyword:
             query.update({"$text": {"$search": keyword}})
@@ -21,6 +21,8 @@ class MongoController:
             query.update({"category": category})
         if city:
             query.update({"city": city})
+        if exp:
+            query.update({"experience": exp})
         return self.offers.find(query)
 
     def offers_sample(self, size):

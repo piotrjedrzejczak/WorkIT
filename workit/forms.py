@@ -71,6 +71,7 @@ class SearchForm(FlaskForm):
     keyword = StringField("Keyword")
     cities = RadioField("City", choices=FORM_CITY_CHOICES, default="")
     categories = RadioField("Category", choices=FORM_CATEGORY_CHOICES, default="")
+    exp = RadioField("Exp", choices=["Trainee", "Junior", "Mid", "Senior"], default="")
     submit = SubmitField("Search")
 
 
