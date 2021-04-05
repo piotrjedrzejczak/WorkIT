@@ -4,6 +4,9 @@ from workit.model.Offer import Offer
 from datetime import datetime
 from requests import get
 from unicodedata import normalize
+from time import sleep
+from random import randint
+
 
 logger = getLogger('workit.pracuj')
 logger.setLevel(DEBUG)
@@ -47,16 +50,23 @@ class PracujJobs(Website):
 
     def _get_raw_offers(self):
         '''Requests offers and returns them as JSON.'''
-        for page in range(1, 21):
+        payload = {'jobBoardVersion': 2, 'rop': 50, 'pn': 1}
+        while True:
+            if payload['pn'] > 500:
+                break  # Precaution
+            sleep(randint(3, 10))
             response = get(
                 self.__get_offers_url,
                 headers={'User-Agent': 'Mozilla/5.0'},
-                params={'pn': page}
+                params=payload
             )
-            if response.status_code == 200 and response.json()['offers'] != []:
-                self._raw_offers.extend(response.json()['offers'])
-            else:
-                break
+            if response.status_code == 200:
+                offers = response.json().get('offers')
+                if offers:
+                    self._raw_offers.extend(offers)
+                    payload['pn'] += 1
+                else:
+                    break
         return self._raw_offers
 
     def _parse_salary(self, raw_salary):
